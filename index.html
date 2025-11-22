@@ -8,13 +8,13 @@
 
   <style>
     :root{
-      --bg:#0d0b0b;          /* sfondo principale scuro */
-      --bg-soft:#181414;     /* pannelli scuri */
-      --card:#1f1814;        /* card menu */
+      --bg:#0d0b0b;
+      --bg-soft:#181414;
+      --card:#1f1814;
       --card-soft:#241d18;
-      --ink:#f5ede3;         /* testo principale chiaro */
-      --muted:#b09a85;       /* testo secondario */
-      --accent:#f17a3a;      /* arancione pizza */
+      --ink:#f5ede3;
+      --muted:#b09a85;
+      --accent:#f17a3a;
       --accent-soft:#3a2415;
       --accent-green:#7ddf7a;
       --divider:#3a2c22;
@@ -49,9 +49,9 @@
       border-bottom:1px solid var(--divider);
     }
     .logo-wrap{
-      width:82px;
-      height:82px;
-      border-radius:20px;
+      width:90px;
+      height:90px;
+      border-radius:22px;
       overflow:hidden;
       background:#000;
       box-shadow:0 12px 30px rgba(0,0,0,.9);
@@ -60,7 +60,7 @@
     .brand-block{
       display:flex;
       flex-direction:column;
-      gap:2px;
+      gap:3px;
     }
     .brand-title{
       font-weight:750;
@@ -157,7 +157,7 @@
       align-items:center;
       gap:8px;
       flex-wrap:wrap;
-      margin-bottom:6px;
+      margin-bottom:4px;
     }
     .controls-title{
       font-size:.85rem;
@@ -168,6 +168,30 @@
     .controls-sub{
       font-size:.78rem;
       color:var(--muted);
+      margin-bottom:4px;
+    }
+
+    .lang-switch{
+      display:flex;
+      flex-wrap:wrap;
+      gap:6px;
+      margin-bottom:6px;
+    }
+    .lang-btn{
+      border-radius:999px;
+      padding:3px 9px;
+      border:1px solid var(--divider);
+      background:#15100d;
+      color:var(--muted);
+      font-size:.75rem;
+      text-transform:uppercase;
+      letter-spacing:.1em;
+      cursor:pointer;
+    }
+    .lang-btn.active{
+      background:var(--accent);
+      color:#0f0906;
+      border-color:var(--accent);
     }
 
     .filters{
@@ -275,11 +299,6 @@
       text-transform:uppercase;
       letter-spacing:.08em;
     }
-    .item.unavailable .name::after{
-      content:" · non disponible";
-      font-size:.7rem;
-      color:var(--accent);
-    }
     .price{
       font-weight:600;
       color:var(--accent);
@@ -367,15 +386,15 @@
     <!-- HEADER -->
     <header>
       <div class="logo-wrap">
-        <!-- Cambia src con il nome reale del file logo -->
+        <!-- Cambia src se il file del logo ha un altro nome -->
         <img src="logo-pizzeria-del-corso.png" alt="Pizzeria del Corso">
       </div>
       <div class="brand-block">
         <div class="brand-title">Pizzeria del Corso</div>
-        <div class="brand-sub">Four à bois · Pizze de caractère</div>
+        <div class="brand-sub" id="brandSub"></div>
         <div class="brand-tag">
           <span class="dot"></span>
-          <span>Menu digital · QR code</span>
+          <span id="brandTag"></span>
         </div>
       </div>
     </header>
@@ -383,126 +402,194 @@
     <!-- INTRO -->
     <section class="intro">
       <div class="badge">
-        MENU DU JOUR
-        <span>pâte longue fermentation</span>
+        <span id="badgeMain"></span>
+        <span id="badgeSub"></span>
       </div>
-      <h1>Les pizze de la <span>Maison</span></h1>
-      <p>
-        Pâte à longue maturation, ingrédients choisis, cuisson au feu de bois.
-        Scannez le QR code au comptoir ou à table pour revenir sur ce menu.
-      </p>
+      <h1><span id="introTitle"></span></h1>
+      <p id="introText"></p>
       <div class="info-row">
-        <span class="info-pill">Entrées à partager</span>
-        <span class="info-pill">Pizze créatives</span>
-        <span class="info-pill">Options végétariennes</span>
+        <span class="info-pill" id="info1"></span>
+        <span class="info-pill" id="info2"></span>
+        <span class="info-pill" id="info3"></span>
       </div>
     </section>
 
     <!-- CONTROLLI -->
     <section class="controls">
       <div class="controls-header">
-        <div class="controls-title">Filtres & recherche</div>
+        <div class="controls-title" id="controlsTitle"></div>
       </div>
-      <p class="controls-sub">
-        Choisissez une catégorie ou cherchez un ingrédient (ex: “pistache”, “bufflonne”).
-      </p>
+      <p class="controls-sub" id="controlsSub"></p>
+
+      <div class="lang-switch">
+        <button class="lang-btn active" data-lang="fr">FR</button>
+        <button class="lang-btn" data-lang="it">IT</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+      </div>
+
       <div class="filters">
-        <button class="filter-btn active" data-filter="all">Tout</button>
-        <button class="filter-btn" data-filter="entrees">Entrées</button>
-        <button class="filter-btn" data-filter="pizze">Pizze</button>
-        <button class="filter-btn" data-filter="veg">Végétarien</button>
-        <button class="filter-btn" data-filter="hot">Épicé</button>
-        <button class="filter-btn" data-filter="new">Nouveautés</button>
+        <button class="filter-btn active" data-filter="all"></button>
+        <button class="filter-btn" data-filter="entrees"></button>
+        <button class="filter-btn" data-filter="pizze"></button>
+        <button class="filter-btn" data-filter="veg"></button>
+        <button class="filter-btn" data-filter="hot"></button>
+        <button class="filter-btn" data-filter="new"></button>
       </div>
+
       <div class="search-box">
         <span class="search-icon">🔍</span>
-        <input id="searchInput" type="text" placeholder="Rechercher...">
+        <input id="searchInput" type="text" placeholder="">
       </div>
       <label class="admin-toggle">
         <input type="checkbox" id="adminToggle">
-        Mode gestion (montrer aussi les pizzas non disponibles)
+        <span id="adminLabel"></span>
       </label>
     </section>
 
     <!-- MENU -->
     <section>
-      <div class="section-label">Entrées</div>
+      <div class="section-label" id="sectionEntrees"></div>
       <div class="divider"></div>
       <div id="entreesList" class="menu-list"></div>
 
-      <div class="section-label" style="margin-top:20px;">Pizze</div>
+      <div class="section-label" style="margin-top:20px;" id="sectionPizze"></div>
       <div class="divider"></div>
       <div id="pizzeList" class="menu-list"></div>
     </section>
 
     <!-- FOOTER -->
     <footer>
-      <div><strong>Pizzeria del Corso</strong> – Adresse à compléter</div>
-      <div>Mar–Sam : 12h–14h · 19h–22h · Dimanche soir · Lundi fermé</div>
-      <div>Sur place · À emporter</div>
+      <div id="footer1"></div>
+      <div id="footer2"></div>
+      <div id="footer3"></div>
     </footer>
   </div>
 
   <script>
-    // ====== DATI MENU =====================================================
-    const menuItems = [
-      // ENTRÉE
-      {
-        category: "entrees",
-        name: "Assortissement de mini pizze fritte",
-        description: "Au plaisir du Chef.",
-        price: "",
-        veg: false,
-        hot: false,
-        tags: ["new"],
-        image: ""
+    // ====== TRADUZIONI UI ==========================================
+    const uiTranslations = {
+      fr: {
+        brandSub: "Four à bois · Pizze de caractère",
+        brandTag: "Menu digital · QR code",
+        badgeMain: "MENU DU JOUR",
+        badgeSub: "pâte longue fermentation",
+        introTitle: "Les pizze de la Maison",
+        introText: "Pâte à longue maturation, ingrédients choisis, cuisson au feu de bois. Scannez le QR code au comptoir ou à table pour retrouver ce menu.",
+        info1: "Entrées à partager",
+        info2: "Pizze créatives",
+        info3: "Options végétariennes",
+        controlsTitle: "Filtres & recherche",
+        controlsSub: "Choisissez une catégorie ou cherchez un ingrédient (ex : “pistache”, “bufflonne”).",
+        filter_all: "Tout",
+        filter_entrees: "Entrées",
+        filter_pizze: "Pizze",
+        filter_veg: "Végétarien",
+        filter_hot: "Épicé",
+        filter_new: "Nouveautés",
+        searchPlaceholder: "Rechercher...",
+        adminLabel: "Mode gestion (montrer aussi les pizzas non disponibles)",
+        sectionEntrees: "Entrées",
+        sectionPizze: "Pizze",
+        footer1: "Pizzeria del Corso – Adresse à compléter",
+        footer2: "Mar–Sam : 12h–14h · 19h–22h · Dimanche soir · Lundi fermé",
+        footer3: "Sur place · À emporter",
+        tagVeg: "Végétarien",
+        tagHot: "Épicé",
+        tagNew: "Nouveau",
+        stateAvailable: "Disponible aujourd’hui",
+        stateUnavailable: "Non disponible",
+        btnMakeUnavailable: "Mettre non dispo",
+        btnMakeAvailable: "Remettre en menu",
+        unavailableSuffix: " · non disponible"
       },
+      it: {
+        brandSub: "Forno a legna · Pizze di carattere",
+        brandTag: "Menu digitale · QR code",
+        badgeMain: "MENU DEL GIORNO",
+        badgeSub: "impasto a lunga fermentazione",
+        introTitle: "Le pizze della Casa",
+        introText: "Impasto a lunga maturazione, ingredienti scelti e cottura nel forno a legna. Scansiona il QR code al banco o al tavolo per rivedere questo menu.",
+        info1: "Antipasti da condividere",
+        info2: "Pizze creative",
+        info3: "Opzioni vegetariane",
+        controlsTitle: "Filtri & ricerca",
+        controlsSub: "Scegli una categoria o cerca un ingrediente (es: “pistacchio”, “bufala”).",
+        filter_all: "Tutto",
+        filter_entrees: "Antipasti",
+        filter_pizze: "Pizze",
+        filter_veg: "Vegetariane",
+        filter_hot: "Piccanti",
+        filter_new: "Novità",
+        searchPlaceholder: "Cerca...",
+        adminLabel: "Modalità gestione (mostra anche pizze non disponibili)",
+        sectionEntrees: "Antipasti",
+        sectionPizze: "Pizze",
+        footer1: "Pizzeria del Corso – Indirizzo da completare",
+        footer2: "Mar–Sab: 12:00–14:00 · 19:00–22:30 · Dom sera · Lun chiuso",
+        footer3: "In loco · Da asporto",
+        tagVeg: "Vegetariana",
+        tagHot: "Piccante",
+        tagNew: "Novità",
+        stateAvailable: "Disponibile oggi",
+        stateUnavailable: "Non disponibile",
+        btnMakeUnavailable: "Metti non dispo",
+        btnMakeAvailable: "Rimetti in menu",
+        unavailableSuffix: " · non disponibile"
+      },
+      en: {
+        brandSub: "Wood-fired oven · Characterful pizzas",
+        brandTag: "Digital menu · QR code",
+        badgeMain: "TODAY'S MENU",
+        badgeSub: "long fermented dough",
+        introTitle: "The House Pizzas",
+        introText: "Slow-fermented dough, selected ingredients, baked in a wood-fired oven. Scan the QR code at the bar or table to open this menu again.",
+        info1: "Sharing starters",
+        info2: "Creative pizzas",
+        info3: "Vegetarian options",
+        controlsTitle: "Filters & search",
+        controlsSub: "Choose a category or search for an ingredient (e.g. “pistachio”, “buffalo”).",
+        filter_all: "All",
+        filter_entrees: "Starters",
+        filter_pizze: "Pizzas",
+        filter_veg: "Vegetarian",
+        filter_hot: "Spicy",
+        filter_new: "New",
+        searchPlaceholder: "Search...",
+        adminLabel: "Management mode (also show unavailable pizzas)",
+        sectionEntrees: "Starters",
+        sectionPizze: "Pizzas",
+        footer1: "Pizzeria del Corso – Address to be completed",
+        footer2: "Tue–Sat: 12:00–14:00 · 19:00–22:30 · Sun evening · Mon closed",
+        footer3: "Eat-in · Takeaway",
+        tagVeg: "Vegetarian",
+        tagHot: "Spicy",
+        tagNew: "New",
+        stateAvailable: "Available today",
+        stateUnavailable: "Not available",
+        btnMakeUnavailable: "Set unavailable",
+        btnMakeAvailable: "Back on menu",
+        unavailableSuffix: " · not available"
+      }
+    };
 
-      // PIZZE
+    const LANG_KEY = "pdc-lang-v1";
+    let currentLang = (localStorage.getItem(LANG_KEY) || "fr");
+
+    // ====== DATI MENU (con testi per lingua) ========================
+    const menuItems = [
       {
-        category: "pizze",
-        name: "Margherita",
-        description: "Sauce tomate, huile extra vierge d’olive, mozzarella, parmesan, basilic. (Option possible avec croute farcie de ricotta fraiche).",
-        price: "",
-        veg: true,
-        hot: false,
-        tags: [],
-        image: ""
-      },
-      {
-        category: "pizze",
-        name: "Mylène",
-        description: "Ricotta au pesto de basilic, courgettes, mozzarella, huile extra vierge d’olive, prosciutto crudo, basilic et copeaux de pecorino romano.",
-        price: "",
-        veg: false,
-        hot: false,
-        tags: [],
-        image: ""
-      },
-      {
-        category: "pizze",
-        name: "Fleur & Bonheur",
-        description: "Fleurs de courgettes en double consistance, mozzarella de bufflonne, basilic et pecorino.",
-        price: "",
-        veg: true,
-        hot: false,
-        tags: [],
-        image: ""
-      },
-      {
-        category: "pizze",
-        name: "Maradona",
-        description: "Mozzarella, saucisse de Savoie, cimes de râpes (friarielli).",
-        price: "",
-        veg: false,
-        hot: false,
-        tags: [],
-        image: ""
-      },
-      {
-        category: "pizze",
-        name: "Brontolona",
-        description: "Pesto de pistache de Bronte*, mozzarella, prosciutto cotto aux herbes et stracciatella de buflonne.",
+        id: "entrees-mini-fritte",
+        category: "entrees",
+        name: {
+          fr: "Assortissement de mini pizze fritte",
+          it: "Assortimento di mini pizze fritte",
+          en: "Assortment of mini fried pizzas"
+        },
+        description: {
+          fr: "Au plaisir du Chef.",
+          it: "A piacere dello Chef.",
+          en: "According to the Chef’s inspiration."
+        },
         price: "",
         veg: false,
         hot: false,
@@ -510,9 +597,89 @@
         image: ""
       },
       {
+        id: "pizza-margherita",
         category: "pizze",
-        name: "Nocina",
-        description: "Crème de noix, mozzarella di bufflonne, gorgonzola à la cuillère, parmesan et basilic.",
+        name: { fr: "Margherita", it: "Margherita", en: "Margherita" },
+        description: {
+          fr: "Sauce tomate, huile extra vierge d’olive, mozzarella, parmesan, basilic. Option possible avec croute farcie de ricotta fraiche.",
+          it: "Salsa di pomodoro, olio extravergine d’oliva, mozzarella, parmigiano, basilico. Possibile bordo ripieno di ricotta fresca.",
+          en: "Tomato sauce, extra virgin olive oil, mozzarella, parmesan, basil. Optional crust filled with fresh ricotta."
+        },
+        price: "",
+        veg: true,
+        hot: false,
+        tags: [],
+        image: ""
+      },
+      {
+        id: "pizza-mylene",
+        category: "pizze",
+        name: { fr: "Mylène", it: "Mylène", en: "Mylène" },
+        description: {
+          fr: "Ricotta au pesto de basilic, courgettes, mozzarella, huile extra vierge d’olive, prosciutto crudo, basilic et copeaux de pecorino romano.",
+          it: "Ricotta al pesto di basilico, zucchine, mozzarella, olio extravergine d’oliva, prosciutto crudo, basilico e scaglie di pecorino romano.",
+          en: "Ricotta with basil pesto, courgettes, mozzarella, extra virgin olive oil, prosciutto crudo, basil and pecorino romano shavings."
+        },
+        price: "",
+        veg: false,
+        hot: false,
+        tags: [],
+        image: ""
+      },
+      {
+        id: "pizza-fleur-bonheur",
+        category: "pizze",
+        name: { fr: "Fleur & Bonheur", it: "Fleur & Bonheur", en: "Fleur & Bonheur" },
+        description: {
+          fr: "Fleurs de courgettes en double consistance, mozzarella de bufflonne, basilic et pecorino.",
+          it: "Fiori di zucchina in doppia consistenza, mozzarella di bufala, basilico e pecorino.",
+          en: "Courgette flowers in two textures, buffalo mozzarella, basil and pecorino."
+        },
+        price: "",
+        veg: true,
+        hot: false,
+        tags: [],
+        image: ""
+      },
+      {
+        id: "pizza-maradona",
+        category: "pizze",
+        name: { fr: "Maradona", it: "Maradona", en: "Maradona" },
+        description: {
+          fr: "Mozzarella, saucisse de Savoie, cimes de râpes (friarielli).",
+          it: "Mozzarella, salsiccia di Savoia, friarielli.",
+          en: "Mozzarella, Savoie sausage, broccoli rabe (friarielli)."
+        },
+        price: "",
+        veg: false,
+        hot: false,
+        tags: [],
+        image: ""
+      },
+      {
+        id: "pizza-brontolona",
+        category: "pizze",
+        name: { fr: "Brontolona", it: "Brontolona", en: "Brontolona" },
+        description: {
+          fr: "Pesto de pistache de Bronte*, mozzarella, prosciutto cotto aux herbes et stracciatella de buflonne.",
+          it: "Pesto di pistacchio di Bronte*, mozzarella, prosciutto cotto alle erbe e stracciatella di bufala.",
+          en: "Bronte pistachio pesto*, mozzarella, herb-cooked ham and buffalo stracciatella."
+        },
+        price: "",
+        veg: false,
+        hot: false,
+        tags: ["new"],
+        image: ""
+      },
+      {
+        id: "pizza-nocina",
+        category: "pizze",
+        name: { fr: "Nocina", it: "Nocina", en: "Nocina" },
+        description: {
+          fr: "Crème de noix, mozzarella di bufflonne, gorgonzola à la cuillère, parmesan et basilic.",
+          it: "Crema di noci, mozzarella di bufala, gorgonzola a cucchiaio, parmigiano e basilico.",
+          en: "Walnut cream, buffalo mozzarella, spoonable gorgonzola, parmesan and basil."
+        },
         price: "",
         veg: true,
         hot: false,
@@ -520,9 +687,14 @@
         image: ""
       },
       {
+        id: "pizza-tartufona",
         category: "pizze",
-        name: "Tartufona",
-        description: "Crème d’asperges, mozzarella, guanciale, huile extra vierge d’olive à la truffe, basilic et copeaux de parmesain.",
+        name: { fr: "Tartufona", it: "Tartufona", en: "Tartufona" },
+        description: {
+          fr: "Crème d’asperges, mozzarella, guanciale, huile extra vierge d’olive à la truffe, basilic et copeaux de parmesan.",
+          it: "Crema di asparagi, mozzarella, guanciale, olio extravergine al tartufo, basilico e scaglie di parmigiano.",
+          en: "Asparagus cream, mozzarella, guanciale, truffle extra virgin olive oil, basil and parmesan shavings."
+        },
         price: "",
         veg: false,
         hot: false,
@@ -530,9 +702,14 @@
         image: ""
       },
       {
+        id: "pizza-carbonara",
         category: "pizze",
-        name: "Carbonara",
-        description: "Carbo-creme, mozzarella, guanciale di Norcia, pecorino romano.",
+        name: { fr: "Carbonara", it: "Carbonara", en: "Carbonara" },
+        description: {
+          fr: "Carbo-creme, mozzarella, guanciale di Norcia, pecorino romano.",
+          it: "Crema carbonara, mozzarella, guanciale di Norcia, pecorino romano.",
+          en: "Carbonara cream, mozzarella, Norcia guanciale, pecorino romano."
+        },
         price: "",
         veg: false,
         hot: false,
@@ -540,9 +717,14 @@
         image: ""
       },
       {
+        id: "pizza-belle-bois-dormant",
         category: "pizze",
-        name: "Belle au bois dormant",
-        description: "Crema di parmigiano, champignon de saison, gorgonzola doux, mozzarella de bouflonne, basilic.",
+        name: { fr: "Belle au bois dormant", it: "Belle au bois dormant", en: "Belle au bois dormant" },
+        description: {
+          fr: "Crema di parmigiano, champignon de saison, gorgonzola doux, mozzarella de bouflonne, basilic.",
+          it: "Crema di parmigiano, funghi di stagione, gorgonzola dolce, mozzarella di bufala, basilico.",
+          en: "Parmesan cream, seasonal mushrooms, mild gorgonzola, buffalo mozzarella, basil."
+        },
         price: "",
         veg: true,
         hot: false,
@@ -550,9 +732,14 @@
         image: ""
       },
       {
+        id: "pizza-parmigiana-2",
         category: "pizze",
-        name: "Parmigiana 2.0",
-        description: "Tomates confites ou pesto rosso, mozzarella, aubergines frittes, copeaux de parmesan et basilic.",
+        name: { fr: "Parmigiana 2.0", it: "Parmigiana 2.0", en: "Parmigiana 2.0" },
+        description: {
+          fr: "Tomates confites ou pesto rosso, mozzarella, aubergines frittes, copeaux de parmesan et basilic.",
+          it: "Pomodori confit o pesto rosso, mozzarella, melanzane fritte, scaglie di parmigiano e basilico.",
+          en: "Confit tomatoes or red pesto, mozzarella, fried aubergines, parmesan shavings and basil."
+        },
         price: "",
         veg: true,
         hot: false,
@@ -560,9 +747,14 @@
         image: ""
       },
       {
+        id: "pizza-mezza-luna",
         category: "pizze",
-        name: "Mezza Luna",
-        description: "Calzone ricotta, jambon cruit ou cru, mozzarella, parmesan.",
+        name: { fr: "Mezza Luna", it: "Mezza Luna", en: "Mezza Luna" },
+        description: {
+          fr: "Calzone ricotta, jambon cruit ou cru, mozzarella, parmesan.",
+          it: "Calzone con ricotta, prosciutto cotto o crudo, mozzarella, parmigiano.",
+          en: "Calzone with ricotta, cooked or cured ham, mozzarella, parmesan."
+        },
         price: "",
         veg: false,
         hot: false,
@@ -571,8 +763,8 @@
       }
     ];
 
-    // ====== DISPONIBILITÀ (localStorage) ============================
-    const AVAIL_KEY = "pdc-availability-dark-v1";
+    // ====== DISPONIBILITÀ ===========================================
+    const AVAIL_KEY = "pdc-availability-dark-i18n-v1";
     let availability = {};
     let adminMode = false;
     let currentFilter = "all";
@@ -583,6 +775,7 @@
     const filterButtons = document.querySelectorAll(".filter-btn");
     const searchInput = document.getElementById("searchInput");
     const adminToggle = document.getElementById("adminToggle");
+    const langButtons = document.querySelectorAll(".lang-btn");
 
     function loadAvailability(){
       try{
@@ -602,10 +795,46 @@
     }
 
     function isAvailable(item){
-      if(Object.prototype.hasOwnProperty.call(availability,item.name)){
-        return !!availability[item.name];
+      if(Object.prototype.hasOwnProperty.call(availability,item.id)){
+        return !!availability[item.id];
       }
-      return true; // default = disponibile
+      return true;
+    }
+
+    // ====== APPLICA TRADUZIONI UI ==================================
+    function applyTranslations(){
+      const t = uiTranslations[currentLang] || uiTranslations.fr;
+
+      document.getElementById("brandSub").textContent = t.brandSub;
+      document.getElementById("brandTag").textContent = t.brandTag;
+      document.getElementById("badgeMain").textContent = t.badgeMain;
+      document.getElementById("badgeSub").textContent = t.badgeSub;
+      document.getElementById("introTitle").textContent = t.introTitle;
+      document.getElementById("introText").textContent = t.introText;
+      document.getElementById("info1").textContent = t.info1;
+      document.getElementById("info2").textContent = t.info2;
+      document.getElementById("info3").textContent = t.info3;
+      document.getElementById("controlsTitle").textContent = t.controlsTitle;
+      document.getElementById("controlsSub").textContent = t.controlsSub;
+      document.getElementById("adminLabel").textContent = t.adminLabel;
+      document.getElementById("sectionEntrees").textContent = t.sectionEntrees;
+      document.getElementById("sectionPizze").textContent = t.sectionPizze;
+      document.getElementById("footer1").textContent = t.footer1;
+      document.getElementById("footer2").textContent = t.footer2;
+      document.getElementById("footer3").textContent = t.footer3;
+      searchInput.placeholder = t.searchPlaceholder;
+
+      // Filtri
+      filterButtons.forEach(btn=>{
+        const key = btn.dataset.filter;
+        const labelKey = "filter_"+key;
+        btn.textContent = t[labelKey] || key;
+      });
+
+      // Bottoni lingua attivi
+      langButtons.forEach(b=>{
+        b.classList.toggle("active", b.dataset.lang === currentLang);
+      });
     }
 
     // ====== FILTRI & RICERCA =======================================
@@ -628,6 +857,15 @@
       renderMenu();
     });
 
+    langButtons.forEach(btn=>{
+      btn.addEventListener("click",()=>{
+        currentLang = btn.dataset.lang;
+        localStorage.setItem(LANG_KEY,currentLang);
+        applyTranslations();
+        renderMenu();
+      });
+    });
+
     function passFilter(item){
       if(currentFilter==="all") return true;
       if(currentFilter==="entrees") return item.category==="entrees";
@@ -640,12 +878,15 @@
 
     function passSearch(item){
       if(!searchTerm) return true;
-      const text = (item.name+" "+item.description).toLowerCase();
+      const name = item.name[currentLang] || item.name.fr;
+      const desc = item.description[currentLang] || item.description.fr;
+      const text = (name + " " + desc).toLowerCase();
       return text.includes(searchTerm);
     }
 
     // ====== RENDER ==================================================
     function createItemCard(item){
+      const t = uiTranslations[currentLang] || uiTranslations.fr;
       const available = isAvailable(item);
       if(!adminMode && !available) return null;  // nascosta ai clienti
 
@@ -658,7 +899,10 @@
 
       const nameEl = document.createElement("div");
       nameEl.className = "name";
-      nameEl.textContent = item.name;
+      nameEl.textContent = item.name[currentLang] || item.name.fr;
+      if(!available){
+        nameEl.textContent += t.unavailableSuffix;
+      }
 
       const priceEl = document.createElement("div");
       priceEl.className = "price";
@@ -669,28 +913,28 @@
 
       const desc = document.createElement("div");
       desc.className = "desc";
-      desc.textContent = item.description;
+      desc.textContent = item.description[currentLang] || item.description.fr;
 
       const tagsRow = document.createElement("div");
       tagsRow.className = "tags";
 
       if(item.veg){
-        const t=document.createElement("span");
-        t.className="tag veg";
-        t.textContent="Végétarien";
-        tagsRow.appendChild(t);
+        const tv = document.createElement("span");
+        tv.className = "tag veg";
+        tv.textContent = t.tagVeg;
+        tagsRow.appendChild(tv);
       }
       if(item.hot){
-        const t=document.createElement("span");
-        t.className="tag hot";
-        t.textContent="Épicé";
-        tagsRow.appendChild(t);
+        const th = document.createElement("span");
+        th.className = "tag hot";
+        th.textContent = t.tagHot;
+        tagsRow.appendChild(th);
       }
       if(item.tags && item.tags.includes("new")){
-        const t=document.createElement("span");
-        t.className="tag new";
-        t.textContent="Nouveau";
-        tagsRow.appendChild(t);
+        const tn = document.createElement("span");
+        tn.className = "tag new";
+        tn.textContent = t.tagNew;
+        tagsRow.appendChild(tn);
       }
 
       el.appendChild(nameRow);
@@ -702,13 +946,13 @@
         adminBar.className = "admin-bar";
 
         const state = document.createElement("span");
-        state.textContent = available ? "Disponible aujourd’hui" : "Non disponible";
+        state.textContent = available ? t.stateAvailable : t.stateUnavailable;
 
         const btn = document.createElement("button");
-        btn.textContent = available ? "Mettre non dispo" : "Remettre en menu";
+        btn.textContent = available ? t.btnMakeUnavailable : t.btnMakeAvailable;
 
         btn.addEventListener("click",()=>{
-          availability[item.name] = !available;
+          availability[item.id] = !available;
           saveAvailability();
           renderMenu();
         });
@@ -735,7 +979,9 @@
         });
     }
 
+    // ====== INIT ====================================================
     loadAvailability();
+    applyTranslations();
     renderMenu();
   </script>
 </body>
