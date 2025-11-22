@@ -1,283 +1,170 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="fr">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Pizzeria del Corso – Menu</title>
-  <meta name="description" content="Pizzeria del Corso – pizza artigianale, forno a legna, Cane Corso mascotte e menu rustico nel cuore del paese.">
+  <meta name="description" content="Pizzeria del Corso – menu pizze e entrées.">
 
   <style>
     :root{
-      --bg:#f2e0b8;
+      --bg:#f3e3be;        /* carta pergamena */
       --bg-dark:#e2cf9e;
+      --card:#fff8e5;
       --ink:#3b2412;
       --muted:#7b5b3b;
-      --accent:#d6462f;
-      --accent-soft:#f9d1c4;
-      --accent-green:#4c7a3b;
-      --card:#f9ecce;
-      --divider:#d0b88e;
-      --shadow-soft:0 18px 40px rgba(0,0,0,.18);
-      --radius-lg:26px;
-      --radius-md:18px;
-      --maxw:1080px;
+      --accent:#c8452c;
+      --accent-soft:#f8d1c7;
+      --green:#4c7a3b;
+      --divider:#d3ba8f;
+      --radius:18px;
+      --shadow:0 10px 25px rgba(0,0,0,.18);
+      --maxw:720px;
     }
 
     *{box-sizing:border-box;margin:0;padding:0;}
     html,body{
-      background:radial-gradient(circle at top, var(--bg-dark), var(--bg));
+      font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background:radial-gradient(circle at top,var(--bg-dark),var(--bg));
       color:var(--ink);
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       line-height:1.6;
     }
     img{max-width:100%;display:block;}
-    a{color:inherit;text-decoration:none;}
+    a{text-decoration:none;color:inherit;}
 
-    .shell{max-width:var(--maxw);margin:0 auto;padding:18px 18px 40px;}
-
-    header{
-      position:sticky;top:0;z-index:20;
-      background:rgba(242,224,184,.96);
-      backdrop-filter:blur(12px);
-      border-bottom:1px solid rgba(0,0,0,.06);
-    }
-    .header-inner{
+    .page{
       max-width:var(--maxw);
       margin:0 auto;
-      padding:10px 18px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:18px;
+      padding:12px 12px 32px;
     }
-    .brand{
+
+    /* HEADER */
+    header{
       display:flex;
       align-items:center;
       gap:12px;
+      padding:10px 10px 6px;
     }
-    .brand-logo{
-      width:70px;
-      height:70px;
+    .logo-wrap{
+      width:60px;height:60px;
       border-radius:50%;
       overflow:hidden;
-      box-shadow:0 12px 30px rgba(0,0,0,.25);
+      box-shadow:0 8px 20px rgba(0,0,0,.3);
       background:#000;
+      flex-shrink:0;
     }
-    .brand-text-main{
+    .brand-title{
       font-weight:800;
-      letter-spacing:.12em;
-      font-size:.9rem;
+      letter-spacing:.14em;
       text-transform:uppercase;
+      font-size:.85rem;
     }
-    .brand-text-sub{
+    .brand-sub{
       font-size:.8rem;
       color:var(--muted);
     }
 
-    .nav-links{
-      display:flex;
-      gap:12px;
-      font-size:.8rem;
-      text-transform:uppercase;
-      letter-spacing:.16em;
+    /* HERO / INTRO */
+    .intro{
+      margin-top:10px;
+      background:var(--card);
+      border-radius:var(--radius);
+      padding:12px 14px;
+      box-shadow:var(--shadow);
+      border:1px solid rgba(255,255,255,.7);
     }
-    .nav-links a{
-      padding:6px 10px;
-      border-radius:999px;
-      border:1px solid transparent;
-    }
-    .nav-links a:hover{
-      border-color:rgba(0,0,0,.16);
-      background:rgba(255,255,255,.65);
-    }
-
-    @media (max-width:780px){
-      .header-inner{
-        flex-direction:column;
-        align-items:flex-start;
-      }
-      .nav-links{
-        flex-wrap:wrap;
-      }
-    }
-
-    .hero{
-      margin-top:24px;
-      display:grid;
-      grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);
-      gap:24px;
-      align-items:center;
-    }
-    .hero-badge{
+    .badge{
       display:inline-flex;
-      gap:8px;
       align-items:center;
-      padding:4px 10px;
+      gap:6px;
+      padding:3px 9px;
       border-radius:999px;
       background:var(--accent-soft);
       color:var(--accent);
-      font-size:.78rem;
+      font-size:.75rem;
       font-weight:600;
       text-transform:uppercase;
-      letter-spacing:.14em;
+      letter-spacing:.12em;
+      margin-bottom:6px;
     }
-    .hero-title{
-      margin-top:10px;
-      font-size:2.4rem;
-      line-height:1.15;
-      letter-spacing:.03em;
+    .intro h1{
+      font-size:1.25rem;
       text-transform:uppercase;
+      letter-spacing:.12em;
     }
-    .hero-title span{
+    .intro h1 span{
       color:var(--accent);
     }
-    .hero-sub{
-      margin-top:10px;
+    .intro p{
+      font-size:.9rem;
       color:var(--muted);
-      font-size:.95rem;
-      max-width:460px;
+      margin-top:4px;
     }
-    .hero-cta{
-      margin-top:16px;
+
+    .info-row{
       display:flex;
       flex-wrap:wrap;
-      gap:10px;
-      align-items:center;
+      gap:6px;
+      margin-top:8px;
+      font-size:.78rem;
+      color:var(--muted);
     }
-    .btn-primary{
-      padding:9px 18px;
-      border-radius:999px;
-      border:none;
-      cursor:pointer;
-      background:linear-gradient(135deg,var(--accent),#b93223);
-      color:#fff;
+
+    /* CONTROLLI */
+    .controls{
+      margin-top:16px;
+      background:rgba(255,248,229,.7);
+      border-radius:var(--radius);
+      padding:10px 12px;
+      border:1px solid var(--divider);
+    }
+    .controls h2{
       font-size:.9rem;
-      font-weight:700;
-      letter-spacing:.12em;
       text-transform:uppercase;
-      box-shadow:0 12px 30px rgba(182,50,35,.55);
+      letter-spacing:.14em;
+      margin-bottom:4px;
     }
-    .btn-primary:hover{
-      filter:brightness(1.07);
-      transform:translateY(-1px);
-    }
-    .hero-note{
+    .controls p{
       font-size:.8rem;
       color:var(--muted);
+      margin-bottom:6px;
     }
-
-    .hero-card{
-      background:var(--card);
-      border-radius:var(--radius-lg);
-      padding:18px 18px 16px;
-      box-shadow:var(--shadow-soft);
-      border:1px solid rgba(255,255,255,.7);
-      position:relative;
-      overflow:hidden;
-    }
-    .hero-card::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:radial-gradient(circle at top,var(--accent-soft),transparent);
-      opacity:.7;
-      pointer-events:none;
-    }
-    .hero-card-inner{
-      position:relative;
-      z-index:1;
-    }
-    .hero-card-title{
-      font-size:.9rem;
-      font-weight:700;
-      text-transform:uppercase;
-      letter-spacing:.16em;
-      color:var(--ink);
-      margin-bottom:8px;
-    }
-    .hero-chip-row{
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-    }
-    .chip{
-      font-size:.78rem;
-      padding:4px 9px;
-      border-radius:999px;
-      border:1px solid var(--divider);
-      background:rgba(255,255,255,.8);
-      color:var(--muted);
-    }
-
-    @media (max-width:880px){
-      .hero{
-        grid-template-columns:1fr;
-      }
-      .hero-card{
-        order:-1;
-      }
-    }
-
-    .menu-section{
-      margin-top:34px;
-    }
-    .menu-header{
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-end;
-      flex-wrap:wrap;
-      gap:16px;
-      margin-bottom:14px;
-    }
-    .menu-header h2{
-      font-size:1.35rem;
-      letter-spacing:.16em;
-      text-transform:uppercase;
-    }
-    .menu-header-sub{
-      font-size:.86rem;
-      color:var(--muted);
-      max-width:360px;
-    }
-
     .filters{
-      margin-top:8px;
       display:flex;
       flex-wrap:wrap;
-      gap:8px;
+      gap:6px;
+      margin-bottom:6px;
     }
     .filter-btn{
       border-radius:999px;
-      padding:5px 12px;
+      padding:4px 8px;
       border:1px solid var(--divider);
-      font-size:.78rem;
+      font-size:.75rem;
       text-transform:uppercase;
-      letter-spacing:.12em;
-      background:rgba(249,236,206,.9);
+      letter-spacing:.1em;
+      background:#fff3d9;
       cursor:pointer;
     }
     .filter-btn.active{
       background:var(--ink);
-      color:#fef4dc;
+      color:#fff8e5;
       border-color:var(--ink);
     }
-
     .search-box{
-      margin-top:8px;
+      margin-top:4px;
       position:relative;
     }
     .search-box input{
       width:100%;
       border-radius:999px;
       border:1px solid var(--divider);
-      padding:7px 12px 7px 30px;
-      font-size:.86rem;
-      background:rgba(249,236,206,.9);
-      color:var(--ink);
+      padding:6px 10px 6px 26px;
+      font-size:.82rem;
+      background:#fff8e8;
     }
     .search-icon{
       position:absolute;
-      top:50%;left:10px;
+      top:50%;left:8px;
       transform:translateY(-50%);
       font-size:.75rem;
       opacity:.6;
@@ -287,15 +174,15 @@
       margin-top:6px;
       font-size:.78rem;
       color:var(--muted);
-    }
-    .admin-toggle input{
-      margin-right:4px;
+      display:flex;
+      align-items:center;
+      gap:4px;
     }
 
+    /* SEZIONI MENU */
     .section-label{
-      margin-top:20px;
-      margin-bottom:6px;
-      font-size:.82rem;
+      margin-top:18px;
+      font-size:.8rem;
       text-transform:uppercase;
       letter-spacing:.18em;
       color:var(--muted);
@@ -303,136 +190,94 @@
     .divider{
       height:1px;
       background:linear-gradient(90deg,rgba(0,0,0,.25),transparent);
-      margin-bottom:14px;
+      margin:4px 0 10px;
     }
 
-    .menu-grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:14px;
-    }
-    @media (max-width:780px){
-      .menu-grid{
-        grid-template-columns:1fr;
-      }
-    }
-
-    .menu-card{
-      background:var(--card);
-      border-radius:var(--radius-md);
-      padding:12px 13px;
+    .menu-list{
       display:flex;
-      gap:12px;
-      border:1px solid rgba(255,255,255,.85);
-      box-shadow:0 12px 30px rgba(0,0,0,.16);
-      position:relative;
-      overflow:hidden;
-    }
-    .menu-card::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:linear-gradient(135deg,rgba(214,70,47,.10),transparent);
-      opacity:0;
-      transition:opacity .16s ease-out;
-      pointer-events:none;
-    }
-    .menu-card:hover::before{
-      opacity:1;
+      flex-direction:column;
+      gap:8px;
     }
 
-    .menu-card.unavailable{
+    .item{
+      background:var(--card);
+      border-radius:var(--radius);
+      padding:8px 9px;
+      border:1px solid rgba(255,255,255,.8);
+      box-shadow:0 6px 16px rgba(0,0,0,.15);
+      position:relative;
+    }
+    .item.unavailable{
       opacity:.45;
     }
 
-    .menu-thumb{
-      width:70px;
-      min-width:70px;
-      height:70px;
-      border-radius:18px;
-      overflow:hidden;
-      background:radial-gradient(circle at 30% 25%, #ffd08a, #e67e22);
+    .name-row{
       display:flex;
-      align-items:center;
-      justify-content:center;
-      color:#fff;
-      font-size:.78rem;
+      justify-content:space-between;
+      gap:6px;
+      align-items:flex-start;
+      font-size:.9rem;
+    }
+    .name{
+      font-weight:700;
       text-transform:uppercase;
       letter-spacing:.08em;
     }
-    .menu-thumb img{
-      width:100%;height:100%;object-fit:cover;
-    }
-
-    .menu-content{flex:1;min-width:0;}
-    .menu-top-row{
-      display:flex;
-      justify-content:space-between;
-      gap:8px;
-      align-items:flex-start;
-    }
-    .menu-name{
-      font-weight:700;
-      font-size:.97rem;
-      text-transform:uppercase;
-      letter-spacing:.09em;
-    }
-    .menu-card.unavailable .menu-name::after{
-      content:" · non disponibile";
-      font-size:.75rem;
+    .item.unavailable .name::after{
+      content:" · non disponible";
+      font-size:.7rem;
       color:var(--accent);
     }
-
-    .menu-price{
+    .price{
       font-weight:700;
-      font-size:.9rem;
+      color:var(--accent);
       white-space:nowrap;
-      color:var(--accent);
+      font-size:.85rem;
     }
-    .menu-desc{
-      margin-top:3px;
-      font-size:.84rem;
+    .desc{
+      margin-top:2px;
+      font-size:.8rem;
       color:var(--muted);
     }
-    .menu-tags{
-      margin-top:6px;
+    .tags{
+      margin-top:4px;
       display:flex;
       flex-wrap:wrap;
-      gap:6px;
+      gap:4px;
     }
     .tag{
       font-size:.7rem;
       text-transform:uppercase;
       letter-spacing:.1em;
-      padding:3px 7px;
+      padding:2px 6px;
       border-radius:999px;
       border:1px solid var(--divider);
       background:#f5e2b5;
     }
     .tag.veg{
-      border-color:#4c7a3b;
-      color:#2a4d24;
-      background:#e2f3dd;
+      border-color:var(--green);
+      color:#264020;
+      background:#e4f4dd;
     }
     .tag.hot{
       border-color:var(--accent);
       color:var(--accent);
-      background:#ffe0d6;
+      background:#ffe1d7;
     }
     .tag.new{
       border-color:#f1c40f;
-      color:#9a7b00;
+      color:#8a6b00;
       background:#fff6cd;
     }
 
     .admin-bar{
-      margin-top:8px;
-      padding-top:6px;
-      border-top:1px dashed rgba(0,0,0,.18);
+      margin-top:6px;
+      padding-top:4px;
+      border-top:1px dashed rgba(0,0,0,.16);
       display:flex;
       justify-content:space-between;
       align-items:center;
-      gap:8px;
+      gap:6px;
       font-size:.75rem;
       color:var(--muted);
     }
@@ -440,149 +285,106 @@
       font-size:.7rem;
       text-transform:uppercase;
       letter-spacing:.1em;
-      padding:3px 7px;
+      padding:3px 6px;
       border-radius:999px;
       border:1px solid var(--divider);
-      background:#fff5dc;
+      background:#fff3d0;
       cursor:pointer;
     }
     .admin-bar button:hover{
-      background:#ffe9bd;
+      background:#ffe4aa;
     }
 
     footer{
-      margin-top:32px;
-      padding-top:18px;
+      margin-top:26px;
+      padding-top:10px;
       border-top:1px solid var(--divider);
-      font-size:.8rem;
+      font-size:.78rem;
       color:var(--muted);
       display:flex;
-      flex-wrap:wrap;
-      gap:12px;
-      justify-content:space-between;
+      flex-direction:column;
+      gap:4px;
     }
-    .footer-col{max-width:260px;}
+
+    @media (min-width:768px){
+      .page{padding:20px 0 40px;}
+    }
   </style>
 </head>
 <body>
-  <header>
-    <div class="header-inner">
-      <div class="brand">
-        <div class="brand-logo">
-          <!-- Cambia src con il file reale del logo -->
-          <img src="logo-pizzeria-del-corso.png" alt="Logo Pizzeria del Corso">
-        </div>
-        <div>
-          <div class="brand-text-main">Pizzeria del Corso</div>
-          <div class="brand-text-sub">Forno a legna · Cane Corso di casa</div>
-        </div>
+  <div class="page">
+    <!-- HEADER -->
+    <header>
+      <div class="logo-wrap">
+        <!-- Cambia src con il nome reale del file logo -->
+        <img src="logo-pizzeria-del-corso.png" alt="Pizzeria del Corso">
       </div>
-      <nav class="nav-links">
-        <a href="#menu">Menu</a>
-        <a href="#info">Info</a>
-        <a href="#contatti">Contatti</a>
-      </nav>
-    </div>
-  </header>
-
-  <div class="shell">
-    <section class="hero">
       <div>
-        <div class="hero-badge">
-          ★ Pizza napoletana · Forno a legna
-        </div>
-        <h1 class="hero-title">
-          La casa della <span>Margherita</span><br>
-          (e del Cane Corso).
-        </h1>
-        <p class="hero-sub">
-          Impasto a lunga maturazione, ingredienti scelti e un’accoglienza di famiglia.
-          Benvenuti alla <strong>Pizzeria del Corso</strong>.
-        </p>
-        <div class="hero-cta">
-          <button class="btn-primary" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">
-            Guarda il menu
-          </button>
-          <span class="hero-note">Puoi aprire questo menu anche dal QR code al tavolo.</span>
-        </div>
+        <div class="brand-title">Pizzeria del Corso</div>
+        <div class="brand-sub">Four à bois · Pizze de caractère</div>
       </div>
-      <aside class="hero-card">
-        <div class="hero-card-inner">
-          <div class="hero-card-title">Oggi al forno</div>
-          <div class="hero-chip-row">
-            <div class="chip">Impasto 48 ore</div>
-            <div class="chip">Mozzarella di bufala</div>
-            <div class="chip">Pistache de Bronte</div>
-            <div class="chip">Guanciale di Norcia</div>
-          </div>
-        </div>
-      </aside>
+    </header>
+
+    <!-- INTRO -->
+    <section class="intro">
+      <div class="badge">Menu du jour</div>
+      <h1>Les pizze de la <span>Maison</span></h1>
+      <p>
+        Pâte à longue maturation, ingrédients choisis, cuisson au feu de bois.
+        Scannez le QR code au comptoir ou à table pour revenir sur ce menu.
+      </p>
+      <div class="info-row">
+        <span>✔ Entrées à partager</span>
+        <span>✔ Pizze créatives</span>
+        <span>✔ Végétarien & gourmand</span>
+      </div>
     </section>
 
-    <section id="menu" class="menu-section">
-      <div class="menu-header">
-        <div>
-          <h2>Il Menu</h2>
-          <p class="menu-header-sub">
-            Entrées da condividere e pizze di casa. Usa i filtri o cerca un ingrediente che ami.
-          </p>
-        </div>
-        <div style="flex:1;min-width:260px;">
-          <div class="filters">
-            <button class="filter-btn active" data-filter="all">Tutto</button>
-            <button class="filter-btn" data-filter="entrees">Entrées</button>
-            <button class="filter-btn" data-filter="pizze">Pizze</button>
-            <button class="filter-btn" data-filter="veg">Vegetariane</button>
-            <button class="filter-btn" data-filter="hot">Piccanti</button>
-            <button class="filter-btn" data-filter="new">Novità</button>
-          </div>
-          <div class="search-box">
-            <span class="search-icon">🔍</span>
-            <input id="searchInput" type="text" placeholder="Cerca una pizza o un ingrediente...">
-          </div>
-          <div class="admin-toggle">
-            <label>
-              <input type="checkbox" id="adminToggle">
-              Modalità gestione (mostra anche pizze non disponibili)
-            </label>
-          </div>
-        </div>
+    <!-- CONTROLLI -->
+    <section class="controls">
+      <h2>Filtrer</h2>
+      <p>Choisissez une catégorie ou cherchez un ingrédient (ex: “pistache”, “bufflonne”).</p>
+      <div class="filters">
+        <button class="filter-btn active" data-filter="all">Tout</button>
+        <button class="filter-btn" data-filter="entrees">Entrées</button>
+        <button class="filter-btn" data-filter="pizze">Pizze</button>
+        <button class="filter-btn" data-filter="veg">Végétarien</button>
+        <button class="filter-btn" data-filter="hot">Épicé</button>
+        <button class="filter-btn" data-filter="new">Nouveautés</button>
       </div>
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input id="searchInput" type="text" placeholder="Rechercher...">
+      </div>
+      <label class="admin-toggle">
+        <input type="checkbox" id="adminToggle">
+        Mode gestion (montrer les pizzas non disponibles)
+      </label>
+    </section>
 
+    <!-- MENU -->
+    <section>
       <div class="section-label">Entrées</div>
       <div class="divider"></div>
-      <div id="entreesGrid" class="menu-grid"></div>
+      <div id="entreesList" class="menu-list"></div>
 
-      <div class="section-label">Pizze</div>
+      <div class="section-label" style="margin-top:20px;">Pizze</div>
       <div class="divider"></div>
-      <div id="pizzeGrid" class="menu-grid"></div>
+      <div id="pizzeList" class="menu-list"></div>
     </section>
 
-    <footer id="info">
-      <div class="footer-col">
-        <strong>Pizzeria del Corso</strong><br>
-        Indirizzo · CAP · Città<br>
-        Forno a legna · Sala interna & tavoli esterni
-      </div>
-      <div class="footer-col">
-        <strong>Orari</strong><br>
-        Mar–Sab: 12:00–14:00 · 19:00–22:30<br>
-        Dom: sera 19:00–22:30<br>
-        Lun: chiuso
-      </div>
-      <div class="footer-col" id="contatti">
-        <strong>Contatti</strong><br>
-        Tel: 000 000 0000<br>
-        Instagram / Facebook: @pizzeriadelcorso<br>
-        Asporto & consumo sul posto
-      </div>
+    <!-- FOOTER -->
+    <footer>
+      <div><strong>Pizzeria del Corso</strong> – Adresse à compléter</div>
+      <div>Mar–Sam : 12h–14h · 19h–22h · Dimanche soir · Lundi fermé</div>
+      <div>Sur place · À emporter</div>
     </footer>
   </div>
 
   <script>
-    // ====== DATI MENU =======================================================
+    // ====== DATI MENU =====================================================
     const menuItems = [
-      // ENTRÉES
+      // ENTRÉE
       {
         category: "entrees",
         name: "Assortissement de mini pizze fritte",
@@ -707,15 +509,15 @@
       }
     ];
 
-    // ====== STATO DISPONIBILITÀ (salvato in localStorage) ===================
-    const AVAIL_KEY = "pdc-availability-v1";
+    // ====== DISPONIBILITÀ (localStorage) ==================================
+    const AVAIL_KEY = "pdc-availability-v2";
     let availability = {};
     let adminMode = false;
     let currentFilter = "all";
     let searchTerm = "";
 
-    const entreesGrid = document.getElementById("entreesGrid");
-    const pizzeGrid = document.getElementById("pizzeGrid");
+    const entreesList = document.getElementById("entreesList");
+    const pizzeList = document.getElementById("pizzeList");
     const filterButtons = document.querySelectorAll(".filter-btn");
     const searchInput = document.getElementById("searchInput");
     const adminToggle = document.getElementById("adminToggle");
@@ -723,7 +525,7 @@
     function loadAvailability(){
       try{
         const raw = localStorage.getItem(AVAIL_KEY);
-        if (raw){
+        if(raw){
           availability = JSON.parse(raw);
         }
       }catch(e){
@@ -734,162 +536,140 @@
     function saveAvailability(){
       try{
         localStorage.setItem(AVAIL_KEY, JSON.stringify(availability));
-      }catch(e){
-        // niente
-      }
+      }catch(e){}
     }
 
     function isAvailable(item){
-      if (Object.prototype.hasOwnProperty.call(availability, item.name)){
+      if(Object.prototype.hasOwnProperty.call(availability,item.name)){
         return !!availability[item.name];
       }
-      return true; // default: disponibile
+      return true; // default = disponibile
     }
 
     // ====== FILTRI & RICERCA ===============================================
-    filterButtons.forEach(btn => {
-      btn.addEventListener("click", () => {
-        filterButtons.forEach(b => b.classList.remove("active"));
+    filterButtons.forEach(btn=>{
+      btn.addEventListener("click",()=>{
+        filterButtons.forEach(b=>b.classList.remove("active"));
         btn.classList.add("active");
         currentFilter = btn.dataset.filter;
         renderMenu();
       });
     });
 
-    searchInput.addEventListener("input", e => {
+    searchInput.addEventListener("input",e=>{
       searchTerm = e.target.value.toLowerCase();
       renderMenu();
     });
 
-    adminToggle.addEventListener("change", e => {
+    adminToggle.addEventListener("change",e=>{
       adminMode = e.target.checked;
       renderMenu();
     });
 
     function passFilter(item){
-      if (currentFilter === "all") return true;
-      if (currentFilter === "entrees") return item.category === "entrees";
-      if (currentFilter === "pizze") return item.category === "pizze";
-      if (currentFilter === "veg") return item.veg;
-      if (currentFilter === "hot") return item.hot;
-      if (currentFilter === "new") return item.tags && item.tags.includes("new");
+      if(currentFilter==="all") return true;
+      if(currentFilter==="entrees") return item.category==="entrees";
+      if(currentFilter==="pizze") return item.category==="pizze";
+      if(currentFilter==="veg") return item.veg;
+      if(currentFilter==="hot") return item.hot;
+      if(currentFilter==="new") return item.tags && item.tags.includes("new");
       return true;
     }
 
     function passSearch(item){
-      if (!searchTerm) return true;
-      const text = (item.name + " " + item.description).toLowerCase();
+      if(!searchTerm) return true;
+      const text = (item.name+" "+item.description).toLowerCase();
       return text.includes(searchTerm);
     }
 
-    // ====== RENDER CARDS ====================================================
-    function createCard(item){
+    // ====== RENDER =========================================================
+    function createItemCard(item){
       const available = isAvailable(item);
+      if(!adminMode && !available) return null;  // nascosta ai clienti
 
-      // in modalità cliente nascondiamo le pizze non disponibili
-      if (!adminMode && !available) return null;
+      const el = document.createElement("article");
+      el.className = "item";
+      if(!available) el.classList.add("unavailable");
 
-      const card = document.createElement("article");
-      card.className = "menu-card";
-      if (!available) card.classList.add("unavailable");
-
-      const thumb = document.createElement("div");
-      thumb.className = "menu-thumb";
-      if (item.image){
-        const img = document.createElement("img");
-        img.src = item.image;
-        img.alt = item.name;
-        thumb.appendChild(img);
-      } else {
-        thumb.textContent = item.category === "entrees" ? "Entrée" : "Pizza";
-      }
-
-      const content = document.createElement("div");
-      content.className = "menu-content";
-
-      const topRow = document.createElement("div");
-      topRow.className = "menu-top-row";
+      const nameRow = document.createElement("div");
+      nameRow.className = "name-row";
 
       const nameEl = document.createElement("div");
-      nameEl.className = "menu-name";
+      nameEl.className = "name";
       nameEl.textContent = item.name;
 
       const priceEl = document.createElement("div");
-      priceEl.className = "menu-price";
-      priceEl.textContent = item.price;
+      priceEl.className = "price";
+      priceEl.textContent = item.price || "";
 
-      topRow.appendChild(nameEl);
-      topRow.appendChild(priceEl);
+      nameRow.appendChild(nameEl);
+      nameRow.appendChild(priceEl);
 
       const desc = document.createElement("div");
-      desc.className = "menu-desc";
+      desc.className = "desc";
       desc.textContent = item.description;
 
       const tagsRow = document.createElement("div");
-      tagsRow.className = "menu-tags";
+      tagsRow.className = "tags";
 
-      if (item.veg){
-        const t = document.createElement("span");
-        t.className = "tag veg";
-        t.textContent = "Vegetariana";
+      if(item.veg){
+        const t=document.createElement("span");
+        t.className="tag veg";
+        t.textContent="Végétarien";
         tagsRow.appendChild(t);
       }
-      if (item.hot){
-        const t = document.createElement("span");
-        t.className = "tag hot";
-        t.textContent = "Piccante";
+      if(item.hot){
+        const t=document.createElement("span");
+        t.className="tag hot";
+        t.textContent="Épicé";
         tagsRow.appendChild(t);
       }
-      if (item.tags && item.tags.includes("new")){
-        const t = document.createElement("span");
-        t.className = "tag new";
-        t.textContent = "Novità";
+      if(item.tags && item.tags.includes("new")){
+        const t=document.createElement("span");
+        t.className="tag new";
+        t.textContent="Nouveau";
         tagsRow.appendChild(t);
       }
 
-      content.appendChild(topRow);
-      content.appendChild(desc);
-      if (tagsRow.children.length) content.appendChild(tagsRow);
+      el.appendChild(nameRow);
+      el.appendChild(desc);
+      if(tagsRow.children.length) el.appendChild(tagsRow);
 
-      // Barra di gestione visibile solo in modalità admin
-      if (adminMode){
+      if(adminMode){
         const adminBar = document.createElement("div");
         adminBar.className = "admin-bar";
 
-        const stateLabel = document.createElement("span");
-        stateLabel.textContent = available ? "Disponibile oggi" : "Non disponibile";
+        const state = document.createElement("span");
+        state.textContent = available ? "Disponible aujourd’hui" : "Non disponible";
 
-        const toggleBtn = document.createElement("button");
-        toggleBtn.textContent = available ? "Metti non disponibile" : "Rimetti in menu";
+        const btn = document.createElement("button");
+        btn.textContent = available ? "Mettre non dispo" : "Remettre en menu";
 
-        toggleBtn.addEventListener("click", () => {
+        btn.addEventListener("click",()=>{
           availability[item.name] = !available;
           saveAvailability();
           renderMenu();
         });
 
-        adminBar.appendChild(stateLabel);
-        adminBar.appendChild(toggleBtn);
-        content.appendChild(adminBar);
+        adminBar.appendChild(state);
+        adminBar.appendChild(btn);
+        el.appendChild(adminBar);
       }
 
-      card.appendChild(thumb);
-      card.appendChild(content);
-
-      return card;
+      return el;
     }
 
     function renderMenu(){
-      entreesGrid.innerHTML = "";
-      pizzeGrid.innerHTML = "";
+      entreesList.innerHTML = "";
+      pizzeList.innerHTML = "";
 
       menuItems
         .filter(item => passFilter(item) && passSearch(item))
-        .forEach(item => {
-          const card = createCard(item);
-          if (!card) return;
-          if (item.category === "entrees") entreesGrid.appendChild(card);
-          if (item.category === "pizze") pizzeGrid.appendChild(card);
+        .forEach(item=>{
+          const card = createItemCard(item);
+          if(!card) return;
+          if(item.category==="entrees") entreesList.appendChild(card);
+          if(item.category==="pizze") pizzeList.appendChild(card);
         });
     }
 
