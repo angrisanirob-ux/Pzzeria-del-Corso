@@ -49,24 +49,25 @@
       border-bottom:1px solid var(--divider);
     }
     .logo-wrap{
-      width:90px;
-      height:90px;
-      border-radius:22px;
+      width:110px;
+      height:110px;
+      border-radius:26px;
       overflow:hidden;
       background:#000;
-      box-shadow:0 12px 30px rgba(0,0,0,.9);
+      box-shadow:0 14px 34px rgba(0,0,0,.95);
       flex-shrink:0;
+      cursor:pointer; /* per farti capire che è “cliccabile” */
     }
     .brand-block{
       display:flex;
       flex-direction:column;
-      gap:3px;
+      gap:4px;
     }
     .brand-title{
       font-weight:750;
       letter-spacing:.15em;
       text-transform:uppercase;
-      font-size:.9rem;
+      font-size:.95rem;
     }
     .brand-sub{
       font-size:.8rem;
@@ -243,16 +244,9 @@
       opacity:.7;
     }
 
+    /* Nascondo la label della modalità gestione dallo UI pubblico */
     .admin-toggle{
-      margin-top:6px;
-      font-size:.78rem;
-      color:var(--muted);
-      display:flex;
-      align-items:center;
-      gap:4px;
-    }
-    .admin-toggle input{
-      accent-color:var(--accent);
+      display:none;
     }
 
     /* MENU ----------------------------------------------------------- */
@@ -440,6 +434,8 @@
         <span class="search-icon">🔍</span>
         <input id="searchInput" type="text" placeholder="">
       </div>
+
+      <!-- Label esistente ma nascosta (serve solo per il JS) -->
       <label class="admin-toggle">
         <input type="checkbox" id="adminToggle">
         <span id="adminLabel"></span>
@@ -469,7 +465,7 @@
     // ====== TRADUZIONI UI ==========================================
     const uiTranslations = {
       fr: {
-        brandSub: "Four à bois · Pizze de caractère",
+        brandSub: "Pizza Napoletana classica e contemporanea",
         brandTag: "Menu digital · QR code",
         badgeMain: "MENU DU JOUR",
         badgeSub: "pâte longue fermentation",
@@ -503,7 +499,7 @@
         unavailableSuffix: " · non disponible"
       },
       it: {
-        brandSub: "Forno a legna · Pizze di carattere",
+        brandSub: "Pizza Napoletana classica e contemporanea",
         brandTag: "Menu digitale · QR code",
         badgeMain: "MENU DEL GIORNO",
         badgeSub: "impasto a lunga fermentazione",
@@ -537,7 +533,7 @@
         unavailableSuffix: " · non disponibile"
       },
       en: {
-        brandSub: "Wood-fired oven · Characterful pizzas",
+        brandSub: "Pizza Napoletana classica e contemporanea",
         brandTag: "Digital menu · QR code",
         badgeMain: "TODAY'S MENU",
         badgeSub: "long fermented dough",
@@ -575,7 +571,7 @@
     const LANG_KEY = "pdc-lang-v1";
     let currentLang = (localStorage.getItem(LANG_KEY) || "fr");
 
-    // ====== DATI MENU (con testi per lingua) ========================
+    // ====== DATI MENU (multilingua) =================================
     const menuItems = [
       {
         id: "entrees-mini-fritte",
@@ -763,8 +759,11 @@
       }
     ];
 
-    // ====== DISPONIBILITÀ ===========================================
+    // ====== DISPONIBILITÀ & STATO ===================================
     const AVAIL_KEY = "pdc-availability-dark-i18n-v1";
+    const LANG_KEY_STORAGE = "pdc-lang-v1";
+    const ADMIN_PIN = "4321"; // <-- Cambialo se vuoi un PIN diverso
+
     let availability = {};
     let adminMode = false;
     let currentFilter = "all";
@@ -776,6 +775,11 @@
     const searchInput = document.getElementById("searchInput");
     const adminToggle = document.getElementById("adminToggle");
     const langButtons = document.querySelectorAll(".lang-btn");
+    const logoWrap = document.querySelector(".logo-wrap");
+
+    if(localStorage.getItem(LANG_KEY_STORAGE)){
+      currentLang = localStorage.getItem(LANG_KEY_STORAGE);
+    }
 
     function loadAvailability(){
       try{
@@ -801,7 +805,7 @@
       return true;
     }
 
-    // ====== APPLICA TRADUZIONI UI ==================================
+    // ====== TRADUZIONI UI ==========================================
     function applyTranslations(){
       const t = uiTranslations[currentLang] || uiTranslations.fr;
 
@@ -824,14 +828,12 @@
       document.getElementById("footer3").textContent = t.footer3;
       searchInput.placeholder = t.searchPlaceholder;
 
-      // Filtri
       filterButtons.forEach(btn=>{
         const key = btn.dataset.filter;
         const labelKey = "filter_"+key;
         btn.textContent = t[labelKey] || key;
       });
 
-      // Bottoni lingua attivi
       langButtons.forEach(b=>{
         b.classList.toggle("active", b.dataset.lang === currentLang);
       });
@@ -852,15 +854,41 @@
       renderMenu();
     });
 
-    adminToggle.addEventListener("change",e=>{
-      adminMode = e.target.checked;
-      renderMenu();
-    });
+    // Modalità gestione segreta: clic sul logo + PIN
+    function toggleAdminViaLogo(){
+      const t = uiTranslations[currentLang] || uiTranslations.fr;
+      if(!adminMode){
+        const pin = prompt("PIN area gestione:");
+        if(pin === ADMIN_PIN){
+          adminMode = true;
+          if(adminToggle) adminToggle.checked = true;
+          renderMenu();
+        } else if(pin !== null){
+          alert("PIN errato.");
+        }
+      } else {
+        adminMode = false;
+        if(adminToggle) adminToggle.checked = false;
+        renderMenu();
+      }
+    }
+
+    if(logoWrap){
+      logoWrap.addEventListener("click", toggleAdminViaLogo);
+    }
+
+    // (Il toggle esiste ma è nascosto, non usato dagli utenti)
+    if(adminToggle){
+      adminToggle.addEventListener("change",e=>{
+        adminMode = e.target.checked;
+        renderMenu();
+      });
+    }
 
     langButtons.forEach(btn=>{
       btn.addEventListener("click",()=>{
         currentLang = btn.dataset.lang;
-        localStorage.setItem(LANG_KEY,currentLang);
+        localStorage.setItem(LANG_KEY_STORAGE,currentLang);
         applyTranslations();
         renderMenu();
       });
@@ -888,7 +916,7 @@
     function createItemCard(item){
       const t = uiTranslations[currentLang] || uiTranslations.fr;
       const available = isAvailable(item);
-      if(!adminMode && !available) return null;  // nascosta ai clienti
+      if(!adminMode && !available) return null;
 
       const el = document.createElement("article");
       el.className = "item";
@@ -899,10 +927,11 @@
 
       const nameEl = document.createElement("div");
       nameEl.className = "name";
-      nameEl.textContent = item.name[currentLang] || item.name.fr;
+      let nameText = item.name[currentLang] || item.name.fr;
       if(!available){
-        nameEl.textContent += t.unavailableSuffix;
+        nameText += t.unavailableSuffix;
       }
+      nameEl.textContent = nameText;
 
       const priceEl = document.createElement("div");
       priceEl.className = "price";
