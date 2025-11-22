@@ -1,153 +1,900 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Pizzeria del Corso — Menu</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Pizzeria del Corso – Menu</title>
+  <meta name="description" content="Pizzeria del Corso – pizza artigianale, forno a legna, Cane Corso mascotte e menu rustico nel cuore del paese.">
+
   <style>
-    body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; margin:0; color:#222; }
-    header { display:flex; align-items:center; justify-content:space-between; padding:0.6rem 1rem; background:#c0392b; color:white; }
-    .brand { font-weight:700; font-size:1.1rem; }
-    .menu-toggle { display:none; background:transparent; border:0; color:white; font-size:1.25rem; cursor:pointer; }
-    nav { }
-    ul.menu { list-style:none; margin:0; padding:0; display:flex; gap:1rem; }
-    ul.menu a { color:white; text-decoration:none; padding:0.5rem; display:block; }
-    ul.menu li { align-self:center; }
-
-    main { padding:1rem; }
-
-    /* Mobile */
-    @media (max-width:700px) {
-      .menu-toggle { display:inline-block; }
-      ul.menu { 
-        display:block; 
-        max-height:0; 
-        overflow:hidden; 
-        transition:max-height .25s ease-out; 
-        background:#e74c3c;
-      }
-      ul.menu.open { max-height:600px; transition:max-height .35s ease-in; }
-      ul.menu li { border-top:1px solid rgba(255,255,255,0.08); }
-      ul.menu a { padding:0.75rem 1rem; }
+    :root{
+      --bg:#f2e0b8;
+      --bg-dark:#e2cf9e;
+      --ink:#3b2412;
+      --muted:#7b5b3b;
+      --accent:#d6462f;
+      --accent-soft:#f9d1c4;
+      --accent-green:#4c7a3b;
+      --card:#f9ecce;
+      --divider:#d0b88e;
+      --shadow-soft:0 18px 40px rgba(0,0,0,.18);
+      --radius-lg:26px;
+      --radius-md:18px;
+      --maxw:1080px;
     }
 
-    /* Simple content styling */
-    h1,h2 { color:#c0392b; }
-    ul.items { padding-left:1rem; }
-    ul.items li { margin-bottom:0.6rem; }
-    .price { font-weight:600; margin-left:0.5rem; }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html,body{
+      background:radial-gradient(circle at top, var(--bg-dark), var(--bg));
+      color:var(--ink);
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      line-height:1.6;
+    }
+    img{max-width:100%;display:block;}
+    a{color:inherit;text-decoration:none;}
+
+    .shell{max-width:var(--maxw);margin:0 auto;padding:18px 18px 40px;}
+
+    header{
+      position:sticky;top:0;z-index:20;
+      background:rgba(242,224,184,.96);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid rgba(0,0,0,.06);
+    }
+    .header-inner{
+      max-width:var(--maxw);
+      margin:0 auto;
+      padding:10px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+    .brand-logo{
+      width:70px;
+      height:70px;
+      border-radius:50%;
+      overflow:hidden;
+      box-shadow:0 12px 30px rgba(0,0,0,.25);
+      background:#000;
+    }
+    .brand-text-main{
+      font-weight:800;
+      letter-spacing:.12em;
+      font-size:.9rem;
+      text-transform:uppercase;
+    }
+    .brand-text-sub{
+      font-size:.8rem;
+      color:var(--muted);
+    }
+
+    .nav-links{
+      display:flex;
+      gap:12px;
+      font-size:.8rem;
+      text-transform:uppercase;
+      letter-spacing:.16em;
+    }
+    .nav-links a{
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid transparent;
+    }
+    .nav-links a:hover{
+      border-color:rgba(0,0,0,.16);
+      background:rgba(255,255,255,.65);
+    }
+
+    @media (max-width:780px){
+      .header-inner{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+      .nav-links{
+        flex-wrap:wrap;
+      }
+    }
+
+    .hero{
+      margin-top:24px;
+      display:grid;
+      grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);
+      gap:24px;
+      align-items:center;
+    }
+    .hero-badge{
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      padding:4px 10px;
+      border-radius:999px;
+      background:var(--accent-soft);
+      color:var(--accent);
+      font-size:.78rem;
+      font-weight:600;
+      text-transform:uppercase;
+      letter-spacing:.14em;
+    }
+    .hero-title{
+      margin-top:10px;
+      font-size:2.4rem;
+      line-height:1.15;
+      letter-spacing:.03em;
+      text-transform:uppercase;
+    }
+    .hero-title span{
+      color:var(--accent);
+    }
+    .hero-sub{
+      margin-top:10px;
+      color:var(--muted);
+      font-size:.95rem;
+      max-width:460px;
+    }
+    .hero-cta{
+      margin-top:16px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+    }
+    .btn-primary{
+      padding:9px 18px;
+      border-radius:999px;
+      border:none;
+      cursor:pointer;
+      background:linear-gradient(135deg,var(--accent),#b93223);
+      color:#fff;
+      font-size:.9rem;
+      font-weight:700;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      box-shadow:0 12px 30px rgba(182,50,35,.55);
+    }
+    .btn-primary:hover{
+      filter:brightness(1.07);
+      transform:translateY(-1px);
+    }
+    .hero-note{
+      font-size:.8rem;
+      color:var(--muted);
+    }
+
+    .hero-card{
+      background:var(--card);
+      border-radius:var(--radius-lg);
+      padding:18px 18px 16px;
+      box-shadow:var(--shadow-soft);
+      border:1px solid rgba(255,255,255,.7);
+      position:relative;
+      overflow:hidden;
+    }
+    .hero-card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:radial-gradient(circle at top,var(--accent-soft),transparent);
+      opacity:.7;
+      pointer-events:none;
+    }
+    .hero-card-inner{
+      position:relative;
+      z-index:1;
+    }
+    .hero-card-title{
+      font-size:.9rem;
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:.16em;
+      color:var(--ink);
+      margin-bottom:8px;
+    }
+    .hero-chip-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+    .chip{
+      font-size:.78rem;
+      padding:4px 9px;
+      border-radius:999px;
+      border:1px solid var(--divider);
+      background:rgba(255,255,255,.8);
+      color:var(--muted);
+    }
+
+    @media (max-width:880px){
+      .hero{
+        grid-template-columns:1fr;
+      }
+      .hero-card{
+        order:-1;
+      }
+    }
+
+    .menu-section{
+      margin-top:34px;
+    }
+    .menu-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+      flex-wrap:wrap;
+      gap:16px;
+      margin-bottom:14px;
+    }
+    .menu-header h2{
+      font-size:1.35rem;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+    }
+    .menu-header-sub{
+      font-size:.86rem;
+      color:var(--muted);
+      max-width:360px;
+    }
+
+    .filters{
+      margin-top:8px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+    .filter-btn{
+      border-radius:999px;
+      padding:5px 12px;
+      border:1px solid var(--divider);
+      font-size:.78rem;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      background:rgba(249,236,206,.9);
+      cursor:pointer;
+    }
+    .filter-btn.active{
+      background:var(--ink);
+      color:#fef4dc;
+      border-color:var(--ink);
+    }
+
+    .search-box{
+      margin-top:8px;
+      position:relative;
+    }
+    .search-box input{
+      width:100%;
+      border-radius:999px;
+      border:1px solid var(--divider);
+      padding:7px 12px 7px 30px;
+      font-size:.86rem;
+      background:rgba(249,236,206,.9);
+      color:var(--ink);
+    }
+    .search-icon{
+      position:absolute;
+      top:50%;left:10px;
+      transform:translateY(-50%);
+      font-size:.75rem;
+      opacity:.6;
+    }
+
+    .admin-toggle{
+      margin-top:6px;
+      font-size:.78rem;
+      color:var(--muted);
+    }
+    .admin-toggle input{
+      margin-right:4px;
+    }
+
+    .section-label{
+      margin-top:20px;
+      margin-bottom:6px;
+      font-size:.82rem;
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      color:var(--muted);
+    }
+    .divider{
+      height:1px;
+      background:linear-gradient(90deg,rgba(0,0,0,.25),transparent);
+      margin-bottom:14px;
+    }
+
+    .menu-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+    }
+    @media (max-width:780px){
+      .menu-grid{
+        grid-template-columns:1fr;
+      }
+    }
+
+    .menu-card{
+      background:var(--card);
+      border-radius:var(--radius-md);
+      padding:12px 13px;
+      display:flex;
+      gap:12px;
+      border:1px solid rgba(255,255,255,.85);
+      box-shadow:0 12px 30px rgba(0,0,0,.16);
+      position:relative;
+      overflow:hidden;
+    }
+    .menu-card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(135deg,rgba(214,70,47,.10),transparent);
+      opacity:0;
+      transition:opacity .16s ease-out;
+      pointer-events:none;
+    }
+    .menu-card:hover::before{
+      opacity:1;
+    }
+
+    .menu-card.unavailable{
+      opacity:.45;
+    }
+
+    .menu-thumb{
+      width:70px;
+      min-width:70px;
+      height:70px;
+      border-radius:18px;
+      overflow:hidden;
+      background:radial-gradient(circle at 30% 25%, #ffd08a, #e67e22);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#fff;
+      font-size:.78rem;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+    }
+    .menu-thumb img{
+      width:100%;height:100%;object-fit:cover;
+    }
+
+    .menu-content{flex:1;min-width:0;}
+    .menu-top-row{
+      display:flex;
+      justify-content:space-between;
+      gap:8px;
+      align-items:flex-start;
+    }
+    .menu-name{
+      font-weight:700;
+      font-size:.97rem;
+      text-transform:uppercase;
+      letter-spacing:.09em;
+    }
+    .menu-card.unavailable .menu-name::after{
+      content:" · non disponibile";
+      font-size:.75rem;
+      color:var(--accent);
+    }
+
+    .menu-price{
+      font-weight:700;
+      font-size:.9rem;
+      white-space:nowrap;
+      color:var(--accent);
+    }
+    .menu-desc{
+      margin-top:3px;
+      font-size:.84rem;
+      color:var(--muted);
+    }
+    .menu-tags{
+      margin-top:6px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:6px;
+    }
+    .tag{
+      font-size:.7rem;
+      text-transform:uppercase;
+      letter-spacing:.1em;
+      padding:3px 7px;
+      border-radius:999px;
+      border:1px solid var(--divider);
+      background:#f5e2b5;
+    }
+    .tag.veg{
+      border-color:#4c7a3b;
+      color:#2a4d24;
+      background:#e2f3dd;
+    }
+    .tag.hot{
+      border-color:var(--accent);
+      color:var(--accent);
+      background:#ffe0d6;
+    }
+    .tag.new{
+      border-color:#f1c40f;
+      color:#9a7b00;
+      background:#fff6cd;
+    }
+
+    .admin-bar{
+      margin-top:8px;
+      padding-top:6px;
+      border-top:1px dashed rgba(0,0,0,.18);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:8px;
+      font-size:.75rem;
+      color:var(--muted);
+    }
+    .admin-bar button{
+      font-size:.7rem;
+      text-transform:uppercase;
+      letter-spacing:.1em;
+      padding:3px 7px;
+      border-radius:999px;
+      border:1px solid var(--divider);
+      background:#fff5dc;
+      cursor:pointer;
+    }
+    .admin-bar button:hover{
+      background:#ffe9bd;
+    }
+
+    footer{
+      margin-top:32px;
+      padding-top:18px;
+      border-top:1px solid var(--divider);
+      font-size:.8rem;
+      color:var(--muted);
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      justify-content:space-between;
+    }
+    .footer-col{max-width:260px;}
   </style>
 </head>
 <body>
   <header>
-    <div class="brand">Pizzeria del Corso</div>
-    <button class="menu-toggle" aria-expanded="false" aria-controls="main-menu">☰ Menu</button>
-    <nav id="main-nav" aria-label="Navigazione principale">
-      <ul id="main-menu" class="menu" role="menubar"></ul>
-    </nav>
+    <div class="header-inner">
+      <div class="brand">
+        <div class="brand-logo">
+          <!-- Cambia src con il file reale del logo -->
+          <img src="logo-pizzeria-del-corso.png" alt="Logo Pizzeria del Corso">
+        </div>
+        <div>
+          <div class="brand-text-main">Pizzeria del Corso</div>
+          <div class="brand-text-sub">Forno a legna · Cane Corso di casa</div>
+        </div>
+      </div>
+      <nav class="nav-links">
+        <a href="#menu">Menu</a>
+        <a href="#info">Info</a>
+        <a href="#contatti">Contatti</a>
+      </nav>
+    </div>
   </header>
 
-  <main>
-    <h1>Il nostro menu</h1>
-    <section id="content">
-      <p>Seleziona una voce dal menu in alto per visualizzare le portate.</p>
+  <div class="shell">
+    <section class="hero">
+      <div>
+        <div class="hero-badge">
+          ★ Pizza napoletana · Forno a legna
+        </div>
+        <h1 class="hero-title">
+          La casa della <span>Margherita</span><br>
+          (e del Cane Corso).
+        </h1>
+        <p class="hero-sub">
+          Impasto a lunga maturazione, ingredienti scelti e un’accoglienza di famiglia.
+          Benvenuti alla <strong>Pizzeria del Corso</strong>.
+        </p>
+        <div class="hero-cta">
+          <button class="btn-primary" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">
+            Guarda il menu
+          </button>
+          <span class="hero-note">Puoi aprire questo menu anche dal QR code al tavolo.</span>
+        </div>
+      </div>
+      <aside class="hero-card">
+        <div class="hero-card-inner">
+          <div class="hero-card-title">Oggi al forno</div>
+          <div class="hero-chip-row">
+            <div class="chip">Impasto 48 ore</div>
+            <div class="chip">Mozzarella di bufala</div>
+            <div class="chip">Pistache de Bronte</div>
+            <div class="chip">Guanciale di Norcia</div>
+          </div>
+        </div>
+      </aside>
     </section>
-  </main>
+
+    <section id="menu" class="menu-section">
+      <div class="menu-header">
+        <div>
+          <h2>Il Menu</h2>
+          <p class="menu-header-sub">
+            Entrées da condividere e pizze di casa. Usa i filtri o cerca un ingrediente che ami.
+          </p>
+        </div>
+        <div style="flex:1;min-width:260px;">
+          <div class="filters">
+            <button class="filter-btn active" data-filter="all">Tutto</button>
+            <button class="filter-btn" data-filter="entrees">Entrées</button>
+            <button class="filter-btn" data-filter="pizze">Pizze</button>
+            <button class="filter-btn" data-filter="veg">Vegetariane</button>
+            <button class="filter-btn" data-filter="hot">Piccanti</button>
+            <button class="filter-btn" data-filter="new">Novità</button>
+          </div>
+          <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input id="searchInput" type="text" placeholder="Cerca una pizza o un ingrediente...">
+          </div>
+          <div class="admin-toggle">
+            <label>
+              <input type="checkbox" id="adminToggle">
+              Modalità gestione (mostra anche pizze non disponibili)
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-label">Entrées</div>
+      <div class="divider"></div>
+      <div id="entreesGrid" class="menu-grid"></div>
+
+      <div class="section-label">Pizze</div>
+      <div class="divider"></div>
+      <div id="pizzeGrid" class="menu-grid"></div>
+    </section>
+
+    <footer id="info">
+      <div class="footer-col">
+        <strong>Pizzeria del Corso</strong><br>
+        Indirizzo · CAP · Città<br>
+        Forno a legna · Sala interna & tavoli esterni
+      </div>
+      <div class="footer-col">
+        <strong>Orari</strong><br>
+        Mar–Sab: 12:00–14:00 · 19:00–22:30<br>
+        Dom: sera 19:00–22:30<br>
+        Lun: chiuso
+      </div>
+      <div class="footer-col" id="contatti">
+        <strong>Contatti</strong><br>
+        Tel: 000 000 0000<br>
+        Instagram / Facebook: @pizzeriadelcorso<br>
+        Asporto & consumo sul posto
+      </div>
+    </footer>
+  </div>
 
   <script>
-    // Dati del menu (puoi spostarli in un file JSON esterno e fare fetch)
-    const menuData = [
-      { id: 'pizze', label: 'Pizze', items: [
-        { title: 'Margherita', price: '€6.50', desc: 'Pomodoro, mozzarella, basilico' },
-        { title: 'Diavola', price: '€8.00', desc: 'Salame piccante, pomodoro, mozzarella' }
-      ]},
-      { id: 'antipasti', label: 'Antipasti', items: [
-        { title: 'Bruschetta', price: '€4.00', desc: 'Pane tostato, pomodoro, aglio' }
-      ]},
-      { id: 'bevande', label: 'Bevande', items: [
-        { title: 'Acqua', price: '€2.00', desc: 'Naturale o frizzante' }
-      ]},
-      { id: 'contatti', label: 'Contatti', items: []}
+    // ====== DATI MENU =======================================================
+    const menuItems = [
+      // ENTRÉES
+      {
+        category: "entrees",
+        name: "Assortissement de mini pizze fritte",
+        description: "Au plaisir du Chef.",
+        price: "",
+        veg: false,
+        hot: false,
+        tags: ["new"],
+        image: ""
+      },
+
+      // PIZZE
+      {
+        category: "pizze",
+        name: "Margherita",
+        description: "Sauce tomate, huile extra vierge d’olive, mozzarella, parmesan, basilic. (Option possible avec croute farcie de ricotta fraiche).",
+        price: "",
+        veg: true,
+        hot: false,
+        tags: [],
+        image: ""
+      },
+      {
+        category: "pizze",
+        name: "Mylène",
+        description: "Ricotta au pesto de basilic, courgettes, mozzarella, huile extra vierge d’olive, prosciutto crudo, basilic et copeaux de pecorino romano.",
+        price: "",
+        veg: false,
+        hot: false,
+        tags: [],
+        image: ""
+      },
+      {
+        category: "pizze",
+        name: "Fleur & Bonheur",
+        description: "Fleurs de courgettes en double consistance, mozzarella de bufflonne, basilic et pecorino.",
+        price: "",
+        veg: true,
+        hot: false,
+        tags: [],
+        image: ""
+      },
+      {
+        category: "pizze",
+        name: "Maradona",
+        description: "Mozzarella, saucisse de Savoie, cimes de râpes (friarielli).",
+        price: "",
+        veg: false,
+        hot: false,
+        tags: [],
+        image: ""
+      },
+      {
+        category: "pizze",
+        name: "Brontolona",
+        description: "Pesto de pistache de Bronte*, mozzarella, prosciutto cotto aux herbes et stracciatella de buflonne.",
+        price: "",
+        veg: false,
+        hot: false,
+        tags: ["new"],
+        image: ""
+      },
+      {
+        category: "pizze",
+        name: "Nocina",
+        description: "Crème de noix, mozzarella di bufflonne, gorgonzola à la cuillère, parmesan et basilic.",
+        price: "",
+        veg: true,
+        hot: false,
+        tags: ["new"],
+        image: ""
+      },
+      {
+        category: "pizze",
+        name: "Tartufona",
+        description: "Crème d’asperges, mozzarella, guanciale, huile extra vierge d’olive à la truffe, basilic et copeaux de parmesain.",
+        price: "",
+        veg: false,
+        hot: false,
+        tags: [],
+        image: ""
+      },
+      {
+        category: "pizze",
+        name: "Carbonara",
+        description: "Carbo-creme, mozzarella, guanciale di Norcia, pecorino romano.",
+        price: "",
+        veg: false,
+        hot: false,
+        tags: [],
+        image: ""
+      },
+      {
+        category: "pizze",
+        name: "Belle au bois dormant",
+        description: "Crema di parmigiano, champignon de saison, gorgonzola doux, mozzarella de bouflonne, basilic.",
+        price: "",
+        veg: true,
+        hot: false,
+        tags: [],
+        image: ""
+      },
+      {
+        category: "pizze",
+        name: "Parmigiana 2.0",
+        description: "Tomates confites ou pesto rosso, mozzarella, aubergines frittes, copeaux de parmesan et basilic.",
+        price: "",
+        veg: true,
+        hot: false,
+        tags: [],
+        image: ""
+      },
+      {
+        category: "pizze",
+        name: "Mezza Luna",
+        description: "Calzone ricotta, jambon cruit ou cru, mozzarella, parmesan.",
+        price: "",
+        veg: false,
+        hot: false,
+        tags: [],
+        image: ""
+      }
     ];
 
-    const menuEl = document.getElementById('main-menu');
-    const contentEl = document.getElementById('content');
+    // ====== STATO DISPONIBILITÀ (salvato in localStorage) ===================
+    const AVAIL_KEY = "pdc-availability-v1";
+    let availability = {};
+    let adminMode = false;
+    let currentFilter = "all";
+    let searchTerm = "";
 
-    // Costruisce la navigazione principale
-    menuData.forEach(cat => {
-      const li = document.createElement('li');
-      li.setAttribute('role','none');
+    const entreesGrid = document.getElementById("entreesGrid");
+    const pizzeGrid = document.getElementById("pizzeGrid");
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    const searchInput = document.getElementById("searchInput");
+    const adminToggle = document.getElementById("adminToggle");
 
-      const a = document.createElement('a');
-      a.href = '#'+cat.id;
-      a.textContent = cat.label;
-      a.setAttribute('role','menuitem');
-      a.addEventListener('click', (e) => {
-        e.preventDefault();
-        renderCategory(cat);
-        toggleMenu(false); // chiudi menu mobile
+    function loadAvailability(){
+      try{
+        const raw = localStorage.getItem(AVAIL_KEY);
+        if (raw){
+          availability = JSON.parse(raw);
+        }
+      }catch(e){
+        availability = {};
+      }
+    }
+
+    function saveAvailability(){
+      try{
+        localStorage.setItem(AVAIL_KEY, JSON.stringify(availability));
+      }catch(e){
+        // niente
+      }
+    }
+
+    function isAvailable(item){
+      if (Object.prototype.hasOwnProperty.call(availability, item.name)){
+        return !!availability[item.name];
+      }
+      return true; // default: disponibile
+    }
+
+    // ====== FILTRI & RICERCA ===============================================
+    filterButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        filterButtons.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        currentFilter = btn.dataset.filter;
+        renderMenu();
       });
-
-      li.appendChild(a);
-      menuEl.appendChild(li);
     });
 
-    function renderCategory(cat) {
-      const section = document.createElement('section');
-      const title = document.createElement('h2');
-      title.textContent = cat.label;
-      section.appendChild(title);
+    searchInput.addEventListener("input", e => {
+      searchTerm = e.target.value.toLowerCase();
+      renderMenu();
+    });
 
-      if (!cat.items || cat.items.length === 0) {
-        const p = document.createElement('p');
-        p.textContent = (cat.id === 'contatti') ? 'Indirizzo: Via Esempio 1 — Tel: 0123 456789' : 'Nessun elemento disponibile.';
-        section.appendChild(p);
+    adminToggle.addEventListener("change", e => {
+      adminMode = e.target.checked;
+      renderMenu();
+    });
+
+    function passFilter(item){
+      if (currentFilter === "all") return true;
+      if (currentFilter === "entrees") return item.category === "entrees";
+      if (currentFilter === "pizze") return item.category === "pizze";
+      if (currentFilter === "veg") return item.veg;
+      if (currentFilter === "hot") return item.hot;
+      if (currentFilter === "new") return item.tags && item.tags.includes("new");
+      return true;
+    }
+
+    function passSearch(item){
+      if (!searchTerm) return true;
+      const text = (item.name + " " + item.description).toLowerCase();
+      return text.includes(searchTerm);
+    }
+
+    // ====== RENDER CARDS ====================================================
+    function createCard(item){
+      const available = isAvailable(item);
+
+      // in modalità cliente nascondiamo le pizze non disponibili
+      if (!adminMode && !available) return null;
+
+      const card = document.createElement("article");
+      card.className = "menu-card";
+      if (!available) card.classList.add("unavailable");
+
+      const thumb = document.createElement("div");
+      thumb.className = "menu-thumb";
+      if (item.image){
+        const img = document.createElement("img");
+        img.src = item.image;
+        img.alt = item.name;
+        thumb.appendChild(img);
       } else {
-        const list = document.createElement('ul');
-        list.className = 'items';
-        cat.items.forEach(it => {
-          const li = document.createElement('li');
-          const title = document.createElement('strong');
-          title.textContent = it.title;
-          const price = document.createElement('span');
-          price.className = 'price';
-          price.textContent = it.price;
-          const desc = document.createElement('div');
-          desc.style.fontSize = '0.95rem';
-          desc.style.color = '#444';
-          desc.textContent = it.desc;
+        thumb.textContent = item.category === "entrees" ? "Entrée" : "Pizza";
+      }
 
-          li.appendChild(title);
-          li.appendChild(price);
-          li.appendChild(desc);
-          list.appendChild(li);
+      const content = document.createElement("div");
+      content.className = "menu-content";
+
+      const topRow = document.createElement("div");
+      topRow.className = "menu-top-row";
+
+      const nameEl = document.createElement("div");
+      nameEl.className = "menu-name";
+      nameEl.textContent = item.name;
+
+      const priceEl = document.createElement("div");
+      priceEl.className = "menu-price";
+      priceEl.textContent = item.price;
+
+      topRow.appendChild(nameEl);
+      topRow.appendChild(priceEl);
+
+      const desc = document.createElement("div");
+      desc.className = "menu-desc";
+      desc.textContent = item.description;
+
+      const tagsRow = document.createElement("div");
+      tagsRow.className = "menu-tags";
+
+      if (item.veg){
+        const t = document.createElement("span");
+        t.className = "tag veg";
+        t.textContent = "Vegetariana";
+        tagsRow.appendChild(t);
+      }
+      if (item.hot){
+        const t = document.createElement("span");
+        t.className = "tag hot";
+        t.textContent = "Piccante";
+        tagsRow.appendChild(t);
+      }
+      if (item.tags && item.tags.includes("new")){
+        const t = document.createElement("span");
+        t.className = "tag new";
+        t.textContent = "Novità";
+        tagsRow.appendChild(t);
+      }
+
+      content.appendChild(topRow);
+      content.appendChild(desc);
+      if (tagsRow.children.length) content.appendChild(tagsRow);
+
+      // Barra di gestione visibile solo in modalità admin
+      if (adminMode){
+        const adminBar = document.createElement("div");
+        adminBar.className = "admin-bar";
+
+        const stateLabel = document.createElement("span");
+        stateLabel.textContent = available ? "Disponibile oggi" : "Non disponibile";
+
+        const toggleBtn = document.createElement("button");
+        toggleBtn.textContent = available ? "Metti non disponibile" : "Rimetti in menu";
+
+        toggleBtn.addEventListener("click", () => {
+          availability[item.name] = !available;
+          saveAvailability();
+          renderMenu();
         });
-        section.appendChild(list);
+
+        adminBar.appendChild(stateLabel);
+        adminBar.appendChild(toggleBtn);
+        content.appendChild(adminBar);
       }
 
-      contentEl.innerHTML = '';
-      contentEl.appendChild(section);
+      card.appendChild(thumb);
+      card.appendChild(content);
+
+      return card;
     }
 
-    // Toggle menu mobile
-    const toggleBtn = document.querySelector('.menu-toggle');
-    toggleBtn.addEventListener('click', () => {
-      const expanded = toggleBtn.getAttribute('aria-expanded') === 'true';
-      toggleMenu(!expanded);
-    });
-    function toggleMenu(open) {
-      const menu = document.getElementById('main-menu');
-      if (open) {
-        menu.classList.add('open');
-        toggleBtn.setAttribute('aria-expanded','true');
-      } else {
-        menu.classList.remove('open');
-        toggleBtn.setAttribute('aria-expanded','false');
-      }
+    function renderMenu(){
+      entreesGrid.innerHTML = "";
+      pizzeGrid.innerHTML = "";
+
+      menuItems
+        .filter(item => passFilter(item) && passSearch(item))
+        .forEach(item => {
+          const card = createCard(item);
+          if (!card) return;
+          if (item.category === "entrees") entreesGrid.appendChild(card);
+          if (item.category === "pizze") pizzeGrid.appendChild(card);
+        });
     }
 
-    // Mostra la prima categoria di default
-    renderCategory(menuData[0]);
+    loadAvailability();
+    renderMenu();
   </script>
 </body>
 </html>
