@@ -4,30 +4,32 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Pizzeria del Corso – Menu</title>
-  <meta name="description" content="Pizzeria del Corso – menu pizze e entrées.">
+  <meta name="description" content="Pizzeria del Corso – menu pizze et entrées.">
 
   <style>
     :root{
-      --bg:#f3e3be;        /* carta pergamena */
-      --bg-dark:#e2cf9e;
-      --card:#fff8e5;
-      --ink:#3b2412;
-      --muted:#7b5b3b;
-      --accent:#c8452c;
-      --accent-soft:#f8d1c7;
-      --green:#4c7a3b;
-      --divider:#d3ba8f;
+      --bg:#0d0b0b;          /* sfondo principale scuro */
+      --bg-soft:#181414;     /* pannelli scuri */
+      --card:#1f1814;        /* card menu */
+      --card-soft:#241d18;
+      --ink:#f5ede3;         /* testo principale chiaro */
+      --muted:#b09a85;       /* testo secondario */
+      --accent:#f17a3a;      /* arancione pizza */
+      --accent-soft:#3a2415;
+      --accent-green:#7ddf7a;
+      --divider:#3a2c22;
       --radius:18px;
-      --shadow:0 10px 25px rgba(0,0,0,.18);
+      --shadow:0 14px 30px rgba(0,0,0,.8);
       --maxw:720px;
     }
 
     *{box-sizing:border-box;margin:0;padding:0;}
     html,body{
       font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      background:radial-gradient(circle at top,var(--bg-dark),var(--bg));
+      background:radial-gradient(circle at top,#2b1d14,var(--bg));
       color:var(--ink);
       line-height:1.6;
+      -webkit-font-smoothing:antialiased;
     }
     img{max-width:100%;display:block;}
     a{text-decoration:none;color:inherit;}
@@ -35,49 +37,70 @@
     .page{
       max-width:var(--maxw);
       margin:0 auto;
-      padding:12px 12px 32px;
+      padding:14px 14px 32px;
     }
 
-    /* HEADER */
+    /* HEADER -------------------------------------------------------- */
     header{
       display:flex;
       align-items:center;
-      gap:12px;
-      padding:10px 10px 6px;
+      gap:14px;
+      padding:8px 4px 4px;
+      border-bottom:1px solid var(--divider);
     }
     .logo-wrap{
-      width:60px;height:60px;
-      border-radius:50%;
+      width:82px;
+      height:82px;
+      border-radius:20px;
       overflow:hidden;
-      box-shadow:0 8px 20px rgba(0,0,0,.3);
       background:#000;
+      box-shadow:0 12px 30px rgba(0,0,0,.9);
       flex-shrink:0;
     }
+    .brand-block{
+      display:flex;
+      flex-direction:column;
+      gap:2px;
+    }
     .brand-title{
-      font-weight:800;
-      letter-spacing:.14em;
+      font-weight:750;
+      letter-spacing:.15em;
       text-transform:uppercase;
-      font-size:.85rem;
+      font-size:.9rem;
     }
     .brand-sub{
       font-size:.8rem;
       color:var(--muted);
     }
+    .brand-tag{
+      font-size:.75rem;
+      color:var(--muted);
+      display:flex;
+      align-items:center;
+      gap:6px;
+    }
+    .dot{
+      width:5px;
+      height:5px;
+      border-radius:999px;
+      background:var(--accent);
+      box-shadow:0 0 0 4px rgba(241,122,58,.25);
+    }
 
-    /* HERO / INTRO */
+    /* INTRO --------------------------------------------------------- */
     .intro{
-      margin-top:10px;
-      background:var(--card);
+      margin-top:14px;
+      background:var(--bg-soft);
       border-radius:var(--radius);
-      padding:12px 14px;
+      padding:14px 14px 10px;
       box-shadow:var(--shadow);
-      border:1px solid rgba(255,255,255,.7);
+      border:1px solid rgba(255,255,255,.05);
     }
     .badge{
       display:inline-flex;
       align-items:center;
       gap:6px;
-      padding:3px 9px;
+      padding:4px 9px;
       border-radius:999px;
       background:var(--accent-soft);
       color:var(--accent);
@@ -87,10 +110,15 @@
       letter-spacing:.12em;
       margin-bottom:6px;
     }
+    .badge span{
+      font-size:.7rem;
+      opacity:.8;
+    }
     .intro h1{
       font-size:1.25rem;
       text-transform:uppercase;
-      letter-spacing:.12em;
+      letter-spacing:.14em;
+      font-weight:700;
     }
     .intro h1 span{
       color:var(--accent);
@@ -100,7 +128,6 @@
       color:var(--muted);
       margin-top:4px;
     }
-
     .info-row{
       display:flex;
       flex-wrap:wrap;
@@ -109,47 +136,64 @@
       font-size:.78rem;
       color:var(--muted);
     }
+    .info-pill{
+      padding:3px 8px;
+      border-radius:999px;
+      background:rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.06);
+    }
 
-    /* CONTROLLI */
+    /* CONTROLLI ----------------------------------------------------- */
     .controls{
       margin-top:16px;
-      background:rgba(255,248,229,.7);
+      background:var(--bg-soft);
       border-radius:var(--radius);
       padding:10px 12px;
       border:1px solid var(--divider);
     }
-    .controls h2{
-      font-size:.9rem;
-      text-transform:uppercase;
-      letter-spacing:.14em;
-      margin-bottom:4px;
-    }
-    .controls p{
-      font-size:.8rem;
-      color:var(--muted);
+    .controls-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:8px;
+      flex-wrap:wrap;
       margin-bottom:6px;
     }
+    .controls-title{
+      font-size:.85rem;
+      text-transform:uppercase;
+      letter-spacing:.14em;
+      color:#d9c3ae;
+    }
+    .controls-sub{
+      font-size:.78rem;
+      color:var(--muted);
+    }
+
     .filters{
       display:flex;
       flex-wrap:wrap;
       gap:6px;
       margin-bottom:6px;
+      margin-top:4px;
     }
     .filter-btn{
       border-radius:999px;
-      padding:4px 8px;
+      padding:4px 9px;
       border:1px solid var(--divider);
       font-size:.75rem;
       text-transform:uppercase;
       letter-spacing:.1em;
-      background:#fff3d9;
+      background:var(--card-soft);
+      color:var(--muted);
       cursor:pointer;
     }
     .filter-btn.active{
-      background:var(--ink);
-      color:#fff8e5;
-      border-color:var(--ink);
+      background:var(--accent);
+      color:#0f0906;
+      border-color:var(--accent);
     }
+
     .search-box{
       margin-top:4px;
       position:relative;
@@ -158,16 +202,21 @@
       width:100%;
       border-radius:999px;
       border:1px solid var(--divider);
-      padding:6px 10px 6px 26px;
+      padding:6px 10px 6px 28px;
       font-size:.82rem;
-      background:#fff8e8;
+      background:#15100d;
+      color:var(--ink);
+    }
+    .search-box input::placeholder{
+      color:#7e6860;
     }
     .search-icon{
       position:absolute;
-      top:50%;left:8px;
+      top:50%;
+      left:9px;
       transform:translateY(-50%);
       font-size:.75rem;
-      opacity:.6;
+      opacity:.7;
     }
 
     .admin-toggle{
@@ -178,18 +227,21 @@
       align-items:center;
       gap:4px;
     }
+    .admin-toggle input{
+      accent-color:var(--accent);
+    }
 
-    /* SEZIONI MENU */
+    /* MENU ----------------------------------------------------------- */
     .section-label{
-      margin-top:18px;
+      margin-top:20px;
       font-size:.8rem;
       text-transform:uppercase;
       letter-spacing:.18em;
-      color:var(--muted);
+      color:#a58e7a;
     }
     .divider{
       height:1px;
-      background:linear-gradient(90deg,rgba(0,0,0,.25),transparent);
+      background:linear-gradient(90deg,rgba(255,255,255,.24),transparent);
       margin:4px 0 10px;
     }
 
@@ -202,13 +254,13 @@
     .item{
       background:var(--card);
       border-radius:var(--radius);
-      padding:8px 9px;
-      border:1px solid rgba(255,255,255,.8);
-      box-shadow:0 6px 16px rgba(0,0,0,.15);
+      padding:9px 10px;
+      border:1px solid rgba(255,255,255,.04);
+      box-shadow:0 10px 22px rgba(0,0,0,.7);
       position:relative;
     }
     .item.unavailable{
-      opacity:.45;
+      opacity:.35;
     }
 
     .name-row{
@@ -219,7 +271,7 @@
       font-size:.9rem;
     }
     .name{
-      font-weight:700;
+      font-weight:600;
       text-transform:uppercase;
       letter-spacing:.08em;
     }
@@ -229,7 +281,7 @@
       color:var(--accent);
     }
     .price{
-      font-weight:700;
+      font-weight:600;
       color:var(--accent);
       white-space:nowrap;
       font-size:.85rem;
@@ -252,28 +304,26 @@
       padding:2px 6px;
       border-radius:999px;
       border:1px solid var(--divider);
-      background:#f5e2b5;
+      background:#19120e;
+      color:#d9c3ae;
     }
     .tag.veg{
-      border-color:var(--green);
-      color:#264020;
-      background:#e4f4dd;
+      border-color:var(--accent-green);
+      color:var(--accent-green);
     }
     .tag.hot{
       border-color:var(--accent);
       color:var(--accent);
-      background:#ffe1d7;
     }
     .tag.new{
       border-color:#f1c40f;
-      color:#8a6b00;
-      background:#fff6cd;
+      color:#f1c40f;
     }
 
     .admin-bar{
       margin-top:6px;
       padding-top:4px;
-      border-top:1px dashed rgba(0,0,0,.16);
+      border-top:1px dashed rgba(255,255,255,.12);
       display:flex;
       justify-content:space-between;
       align-items:center;
@@ -285,14 +335,15 @@
       font-size:.7rem;
       text-transform:uppercase;
       letter-spacing:.1em;
-      padding:3px 6px;
+      padding:3px 7px;
       border-radius:999px;
       border:1px solid var(--divider);
-      background:#fff3d0;
+      background:#15100d;
+      color:var(--ink);
       cursor:pointer;
     }
     .admin-bar button:hover{
-      background:#ffe4aa;
+      background:#231916;
     }
 
     footer{
@@ -319,31 +370,42 @@
         <!-- Cambia src con il nome reale del file logo -->
         <img src="logo-pizzeria-del-corso.png" alt="Pizzeria del Corso">
       </div>
-      <div>
+      <div class="brand-block">
         <div class="brand-title">Pizzeria del Corso</div>
         <div class="brand-sub">Four à bois · Pizze de caractère</div>
+        <div class="brand-tag">
+          <span class="dot"></span>
+          <span>Menu digital · QR code</span>
+        </div>
       </div>
     </header>
 
     <!-- INTRO -->
     <section class="intro">
-      <div class="badge">Menu du jour</div>
+      <div class="badge">
+        MENU DU JOUR
+        <span>pâte longue fermentation</span>
+      </div>
       <h1>Les pizze de la <span>Maison</span></h1>
       <p>
         Pâte à longue maturation, ingrédients choisis, cuisson au feu de bois.
         Scannez le QR code au comptoir ou à table pour revenir sur ce menu.
       </p>
       <div class="info-row">
-        <span>✔ Entrées à partager</span>
-        <span>✔ Pizze créatives</span>
-        <span>✔ Végétarien & gourmand</span>
+        <span class="info-pill">Entrées à partager</span>
+        <span class="info-pill">Pizze créatives</span>
+        <span class="info-pill">Options végétariennes</span>
       </div>
     </section>
 
     <!-- CONTROLLI -->
     <section class="controls">
-      <h2>Filtrer</h2>
-      <p>Choisissez une catégorie ou cherchez un ingrédient (ex: “pistache”, “bufflonne”).</p>
+      <div class="controls-header">
+        <div class="controls-title">Filtres & recherche</div>
+      </div>
+      <p class="controls-sub">
+        Choisissez une catégorie ou cherchez un ingrédient (ex: “pistache”, “bufflonne”).
+      </p>
       <div class="filters">
         <button class="filter-btn active" data-filter="all">Tout</button>
         <button class="filter-btn" data-filter="entrees">Entrées</button>
@@ -358,7 +420,7 @@
       </div>
       <label class="admin-toggle">
         <input type="checkbox" id="adminToggle">
-        Mode gestion (montrer les pizzas non disponibles)
+        Mode gestion (montrer aussi les pizzas non disponibles)
       </label>
     </section>
 
@@ -509,8 +571,8 @@
       }
     ];
 
-    // ====== DISPONIBILITÀ (localStorage) ==================================
-    const AVAIL_KEY = "pdc-availability-v2";
+    // ====== DISPONIBILITÀ (localStorage) ============================
+    const AVAIL_KEY = "pdc-availability-dark-v1";
     let availability = {};
     let adminMode = false;
     let currentFilter = "all";
@@ -546,7 +608,7 @@
       return true; // default = disponibile
     }
 
-    // ====== FILTRI & RICERCA ===============================================
+    // ====== FILTRI & RICERCA =======================================
     filterButtons.forEach(btn=>{
       btn.addEventListener("click",()=>{
         filterButtons.forEach(b=>b.classList.remove("active"));
@@ -582,7 +644,7 @@
       return text.includes(searchTerm);
     }
 
-    // ====== RENDER =========================================================
+    // ====== RENDER ==================================================
     function createItemCard(item){
       const available = isAvailable(item);
       if(!adminMode && !available) return null;  // nascosta ai clienti
